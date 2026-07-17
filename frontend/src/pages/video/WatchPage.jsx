@@ -1,0 +1,284 @@
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FiThumbsUp, FiShare2, FiDownload, FiList } from "react-icons/fi";
+import api from "../../services/api";
+import VideoCard from "../../components/video/VideoCard";
+import { formatViews, timeAgo, getMediaUrl, getYoutubeEmbed, getYoutubeId } from "../../utils/format";
+
+export default function WatchPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const user = useSelector((s) => s.auth.user);
+  const [video, setVideo] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [liked, setLiked] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+  const [playlistMsg, setPlaylistMsg] = useState("");
+
+  useEffect(() => {
+    setLoading(true);
+    api
+      .get(`/videos/${id}`)
+      .then((res) => {
+        setVideo(res.data.data);
+        setRelated(res.data.related || []);
+        setLiked(res.data.liked || false);
+      })
+      .catch(() => navigate("/"))
+      .finally(() => setLoading(false));
+
+    api
+      .get(`/videos/${id}/comments`)
+      .then((res) => setComments(res.data.data || []))
+      .catch(console.error);
+  }, [id, navigate]);
+
+  async function handleLike() {
+    if (!user) return navigate("/login");
+    const { data } = await api.post(`/videos/${id}/like`);
+    setLiked(data.liked);
+    setVideo((v) => ({ ...v, likesCount: data.likesCount }));
+  }
+
+  async function openPlaylistModal() {
+    if (!user) return navigate("/login");
+    setPlaylistMsg("");
+    setShowPlaylistModal(true);
+    try {
+      const { data } = await api.get("/playlists/me");
+      setPlaylists(data.data || []);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function saveToPlaylist(playlistId) {
+    try {
+      await api.post(`/playlists/${playlistId}/videos`, { videoId: id });
+      setPlaylistMsg("Saved to playlist");
+      setTimeout(() => setShowPlaylistModal(false), 800);
+    } catch (err) {
+      setPlaylistMsg(err.response?.data?.message || "Could not save");
+    }
+  }
+
+  async function createAndSave() {
+    const title = prompt("New playlist name");
+    if (!title?.trim()) return;
+    const { data } = await api.post("/playlists", { title: title.trim() });
+    await api.post(`/playlists/${data.data._id}/videos`, { videoId: id });
+    setPlaylistMsg("Saved to new playlist");
+    setTimeout(() => setShowPlaylistModal(false), 800);
+  }
+
+  async function handleComment(e) {
+    e.preventDefault();
+    if (!user) return navigate("/login");
+    if (!commentText.trim()) return;
+
+    const { data } = await api.post(`/videos/${id}/comments`, {
+      content: commentText.trim(),
+    });
+    setComments((prev) => [data.data, ...prev]);
+    setCommentText("");
+    setVideo((v) => ({ ...v, commentsCount: (v.commentsCount || 0) + 1 }));
+  }
+
+  if (loading || !video) {
+    return (
+      <div className="mx-auto max-w-[1700px] animate-pulse">
+        <div className="aspect-video rounded-xl bg-zinc-800" />
+        <div className="mt-4 h-8 w-2/3 rounded bg-zinc-800" />
+      </div>
+    );
+  }
+
+  const videoSrc = getMediaUrl(video.videoUrl);
+  const youtubeEmbed = getYoutubeEmbed(video.videoUrl);
+  const isYoutube = Boolean(getYoutubeId(video.videoUrl));
+
+  return (
+    <div className="mx-auto flex max-w-[1700px] flex-col gap-6 xl:flex-row">
+      <div className="min-w-0 flex-1">
+        <div className="aspect-video overflow-hidden rounded-xl bg-black">
+          {isYoutube ? (
+            <iframe
+              key={video._id}
+              src={youtubeEmbed}
+              title={video.title}
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              key={video._id}
+              src={videoSrc}
+              controls
+              autoPlay
+              className="h-full w-full"
+            />
+          )}
+        </div>
+
+        <h1 className="mt-4 text-xl font-semibold leading-snug">{video.title}</h1>
+
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              to={`/channel/${video.owner?.username}`}
+              className="h-10 w-10 overflow-hidden rounded-full bg-zinc-700"
+            >
+              {video.owner?.avatar && (
+                <img src={video.owner.avatar} alt="" className="h-full w-full object-cover" />
+              )}
+            </Link>
+            <div>
+              <Link
+                to={`/channel/${video.owner?.username}`}
+                className="font-medium hover:underline"
+              >
+                {video.owner?.fullName || video.owner?.username}
+              </Link>
+              <p className="text-xs text-zinc-500">
+                {formatViews(video.owner?.subscribersCount || 0)} subscribers
+              </p>
+            </div>
+            <button className="ml-2 rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black">
+              Subscribe
+            </button>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={handleLike}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm ${
+                liked
+                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
+                  : "bg-zinc-100 dark:bg-zinc-800"
+              }`}
+            >
+              <FiThumbsUp />
+              {formatViews(video.likesCount || 0)}
+            </button>
+            <button
+              onClick={openPlaylistModal}
+              className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800"
+            >
+              <FiList /> Save
+            </button>
+            <button className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800">
+              <FiShare2 /> Share
+            </button>
+            <button className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800">
+              <FiDownload /> Download
+            </button>
+          </div>
+        </div>
+
+        {showPlaylistModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+            <div className="w-full max-w-md rounded-xl bg-white p-5 dark:bg-zinc-900">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-medium">Save to playlist</h3>
+                <button
+                  onClick={() => setShowPlaylistModal(false)}
+                  className="text-sm text-zinc-500"
+                >
+                  Close
+                </button>
+              </div>
+              {playlistMsg && (
+                <p className="mb-3 text-sm text-teal-600">{playlistMsg}</p>
+              )}
+              <div className="max-h-64 space-y-2 overflow-y-auto">
+                {playlists.map((pl) => (
+                  <button
+                    key={pl._id}
+                    onClick={() => saveToPlaylist(pl._id)}
+                    className="flex w-full items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 text-left text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
+                  >
+                    <span>{pl.title}</span>
+                    <span className="text-xs text-zinc-500">{pl.videoCount || 0}</span>
+                  </button>
+                ))}
+                {!playlists.length && (
+                  <p className="text-sm text-zinc-500">No playlists yet.</p>
+                )}
+              </div>
+              <button
+                onClick={createAndSave}
+                className="mt-4 w-full rounded-full bg-teal-700 py-2 text-sm font-medium text-white"
+              >
+                Create new playlist
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-4 rounded-xl bg-zinc-100 p-4 dark:bg-zinc-900">
+          <p className="text-sm font-medium">
+            {formatViews(video.views)} views · {timeAgo(video.createdAt)}
+          </p>
+          <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed">
+            {video.description || "No description."}
+          </p>
+        </div>
+
+        <section className="mt-6">
+          <h2 className="mb-4 text-lg font-medium">
+            {video.commentsCount || comments.length} Comments
+          </h2>
+
+          <form onSubmit={handleComment} className="mb-6 flex gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-sm text-white">
+              {user?.username?.[0]?.toUpperCase() || "?"}
+            </div>
+            <div className="flex-1">
+              <input
+                className="w-full border-b border-zinc-300 bg-transparent py-2 outline-none focus:border-blue-500 dark:border-zinc-700"
+                placeholder={user ? "Add a comment..." : "Sign in to comment"}
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                onFocus={() => !user && navigate("/login")}
+              />
+            </div>
+          </form>
+
+          <div className="space-y-5">
+            {comments.map((c) => (
+              <div key={c._id} className="flex gap-3">
+                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-700">
+                  {c.author?.avatar && (
+                    <img src={c.author.avatar} alt="" className="h-full w-full object-cover" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm font-medium">
+                    {c.author?.username}{" "}
+                    <span className="font-normal text-zinc-500">
+                      {timeAgo(c.createdAt)}
+                    </span>
+                  </p>
+                  <p className="mt-1 text-sm">{c.content}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <aside className="w-full shrink-0 space-y-3 xl:w-[400px]">
+        <h3 className="text-sm font-medium text-zinc-500">Up next</h3>
+        {related.map((v) => (
+          <VideoCard key={v._id} video={v} layout="list" />
+        ))}
+      </aside>
+    </div>
+  );
+}

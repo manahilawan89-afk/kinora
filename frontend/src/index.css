@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #0f766e;
+  --brand-glow: #0d9488;
+  --brand-accent: #d97706;
+  --ink: #071412;
+  --shell-bg: #f4f7f6;
+}
+
+.dark {
+  --brand-glow: #2dd4bf;
+  --brand-accent: #f59e0b;
+  --shell-bg: #071412;
+}
+
+body {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  @apply bg-[#f4f7f6] text-zinc-900 antialiased dark:bg-kinora-ink dark:text-zinc-100;
+}
+
+.font-brand {
+  font-family: "Sora", system-ui, sans-serif;
+}
+
+.kinora-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 520px at 8% -8%, rgba(15, 118, 110, 0.14), transparent 55%),
+    radial-gradient(900px 480px at 92% 0%, rgba(217, 119, 6, 0.1), transparent 50%),
+    radial-gradient(700px 380px at 50% 110%, rgba(13, 148, 136, 0.1), transparent 55%),
+    #f4f7f6;
+}
+
+.dark .kinora-shell {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(45, 212, 191, 0.18), transparent 55%),
+    radial-gradient(900px 500px at 90% 0%, rgba(245, 158, 11, 0.12), transparent 50%),
+    radial-gradient(700px 400px at 50% 100%, rgba(15, 118, 110, 0.2), transparent 60%),
+    #071412;
+}
+
+.kinora-noise {
+  position: relative;
+}
+
+.kinora-noise::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+.dark .kinora-noise::before {
+  opacity: 0.04;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
