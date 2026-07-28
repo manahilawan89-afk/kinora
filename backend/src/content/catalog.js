@@ -3,7 +3,7 @@
  * Thumbnails use unique picsum seeds; playback rotates through royalty-free sample MP4s.
  */
 
-const CATALOG_VERSION = 3;
+const CATALOG_VERSION = 4;
 
 const SAMPLE_MP4 = [
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -46,6 +46,14 @@ const CREATORS = [
   { username: "podcasthq", fullName: "Podcast HQ", verified: true, subs: 1800000, bio: "Long-form talks & storytelling." },
   { username: "cricketzone", fullName: "Cricket Zone", verified: true, subs: 6800000, bio: "Cricket highlights & expert analysis." },
   { username: "lofilane", fullName: "Lo-Fi Lane", verified: true, subs: 11000000, bio: "Beats to study, chill & create." },
+  { username: "darkroomvevo", fullName: "Darkroom / Pop Vault", verified: true, subs: 15200000, bio: "Billie-era pop, alt anthems & official-style drops." },
+  { username: "ultraviolencehq", fullName: "Ultraviolence HQ", verified: true, subs: 9800000, bio: "Lana Del Rey–style cinema, ballads & vintage glam." },
+  { username: "hindibeats", fullName: "Hindi Beats Official", verified: true, subs: 18700000, bio: "Bollywood & Hindi chart hits." },
+  { username: "pakbeats", fullName: "Pak Beats", verified: true, subs: 12400000, bio: "Pakistani pop, Coke Studio energy & indie anthems." },
+  { username: "dramapak", fullName: "Drama Pak Hub", verified: true, subs: 15600000, bio: "Latest Pakistani drama episodes & highlights." },
+  { username: "lockupcentral", fullName: "Lock Upp Central", verified: true, subs: 8900000, bio: "Lock Upp episodes, tasks & weekend ka vaar vibes." },
+  { username: "turkclips", fullName: "Turk Dizi Clips", verified: true, subs: 11200000, bio: "Turkish drama clips, scenes & English sub teasers." },
+  { username: "novelnight", fullName: "Novel Night", verified: true, subs: 4200000, bio: "Urdu & English novel readings, summaries & book talks." },
 ];
 
 /** [title, description, category, tags[], creatorUsername, durationSec, views, likes, comments, daysAgo, type?, music?] */
@@ -298,6 +306,100 @@ const ENTRIES = [
   ["Kids: Dinosaur Facts Fast", "Big dinos, little attention spans.", "Learning Videos", ["dinosaurs", "kids"], "kidsspark", 300, 11200000, 189000, 5400, 12],
   ["Space Doc: Moon Bases Incoming", "Habitats, dust, and power.", "Space", ["moon", "doc"], "sciencehub", 1600, 3800000, 134000, 5600, 10],
   ["Nature Doc: Bee Superhighway", "How pollinators navigate cities.", "Nature", ["bees", "doc"], "naturelens", 1400, 2600000, 92000, 3400, 17],
+
+  // —— Billie Eilish–style / Darkroom pop ——
+  ["Billie Eilish — bad guy (Official Music Video)", "Official-style MV energy — bass, green hair era, chart history.", "Pop", ["billie", "eilish", "omv", "pop"], "darkroomvevo", 194, 1420000000, 12000000, 890000, 400, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — when the party's over (Official Video)", "Intimate piano ballad video — tears, stillness, soft light.", "Pop", ["billie", "eilish", "ballad"], "darkroomvevo", 196, 890000000, 7800000, 420000, 380, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — everything i wanted (Official Audio)", "Brother Finneas co-write — late-night confession energy.", "Pop", ["billie", "eilish", "audio"], "darkroomvevo", 245, 520000000, 4100000, 210000, 350, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — Happier Than Ever (Official Music Video)", "Quiet open → rock explosion. Full performance cut.", "Pop", ["billie", "eilish", "happier"], "darkroomvevo", 298, 410000000, 3600000, 185000, 200, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — Therefore I Am (Official Video)", "Gallery flex, sharp lyrics, dance-floor attitude.", "Pop", ["billie", "eilish", "therefore"], "darkroomvevo", 174, 380000000, 2900000, 156000, 220, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — Ocean Eyes (Official Music Video)", "The breakthrough single that started it all.", "Pop", ["billie", "eilish", "oceaneyes"], "darkroomvevo", 200, 720000000, 5500000, 310000, 500, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — Lunch (Official Music Video)", "HIT ME HARD AND SOFT era — playful, bold, cinematic.", "Pop", ["billie", "eilish", "hmhas"], "darkroomvevo", 189, 98000000, 2100000, 98000, 45, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish — CHIHIRO (Official Lyric Video)", "Dreamy synths and haunted melody — lyric visualizer.", "Pop", ["billie", "eilish", "chihiro"], "darkroomvevo", 303, 64000000, 1500000, 72000, 40, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+  ["Billie Eilish Live — Coachella Night Highlights", "Festival cuts: bad guy, Happier Than Ever, crowd roar.", "Live Concerts", ["billie", "live", "coachella"], "darkroomvevo", 720, 45000000, 1200000, 67000, 90, "video", { artist: "Billie Eilish", label: "Darkroom / Interscope", verifiedArtist: true }],
+
+  // —— Lana Del Rey–style ——
+  ["Lana Del Rey — Video Games (Official Music Video)", "Hollywood sadness, vintage Americana, iconic debut era.", "Pop", ["lana", "delrey", "omv"], "ultraviolencehq", 281, 510000000, 4200000, 245000, 420, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — Summertime Sadness (Official Video)", "Cliffside melancholy that defined a generation of playlists.", "Pop", ["lana", "delrey", "summer"], "ultraviolencehq", 265, 680000000, 5100000, 290000, 400, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — Born to Die (Official Music Video)", "Title-track cinema — roses, cars, and doomed romance.", "Pop", ["lana", "delrey", "borntodie"], "ultraviolencehq", 286, 390000000, 3100000, 178000, 410, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — Young and Beautiful (Official Audio)", "The Great Gatsby soundtrack classic — strings forever.", "Pop", ["lana", "delrey", "gatsby"], "ultraviolencehq", 236, 820000000, 6400000, 350000, 390, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — West Coast (Official Music Video)", "Ultraviolence era — California haze and slow-burn cool.", "Pop", ["lana", "delrey", "westcoast"], "ultraviolencehq", 258, 210000000, 1800000, 92000, 360, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — Say Yes to Heaven (Official Audio)", "Viral quiet storm — soft vocals, endless replays.", "Pop", ["lana", "delrey", "heaven"], "ultraviolencehq", 209, 175000000, 2400000, 110000, 80, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — A&W (Official Audio)", "Did you know that there's a tunnel under Ocean Blvd — deep cut.", "Pop", ["lana", "delrey", "aw"], "ultraviolencehq", 427, 92000000, 1600000, 78000, 100, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey — Chemtrails Over the Country Club (Official Video)", "Pastoral daydream — soft focus and Americana.", "Pop", ["lana", "delrey", "chemtrails"], "ultraviolencehq", 275, 68000000, 980000, 45000, 150, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+  ["Lana Del Rey Live — Norman Fucking Rockwell Tour Clip", "Intimate stage, full-band glow, crowd singalong.", "Live Concerts", ["lana", "live", "nfr"], "ultraviolencehq", 540, 28000000, 720000, 31000, 200, "video", { artist: "Lana Del Rey", label: "Polydor / Interscope", verifiedArtist: true }],
+
+  // —— Hindi songs ——
+  ["Kesariya — Official Video (Brahmastra)", "Hindi romantic anthem — desert glow and soft vocals.", "Bollywood Songs", ["hindi", "kesariya", "bollywood"], "hindibeats", 268, 780000000, 5200000, 280000, 60, "video", { artist: "Arijit Singh", label: "Sony Music India", verifiedArtist: true }],
+  ["Apna Bana Le — Official Video", "Heartfelt Hindi ballad from Bhediya — rain and longing.", "Bollywood Songs", ["hindi", "apnabanale"], "hindibeats", 253, 420000000, 3100000, 165000, 90, "video", { artist: "Arijit Singh", label: "T-Series", verifiedArtist: true }],
+  ["Tum Hi Ho — Official Video (Aashiqui 2)", "The Hindi love song that never left playlists.", "Bollywood Songs", ["hindi", "tumhiho", "classic"], "hindibeats", 262, 1500000000, 9800000, 510000, 500, "video", { artist: "Arijit Singh", label: "T-Series", verifiedArtist: true }],
+  ["Raataan Lambiyan — Official Video", "Shershaah hit — soft Hindi romance and guitar.", "Bollywood Songs", ["hindi", "raataan"], "hindibeats", 230, 610000000, 4100000, 198000, 120, "video", { artist: "Jubin Nautiyal, Asees Kaur", label: "Sony Music India", verifiedArtist: true }],
+  ["Passerby / Passori — Official Video (Hindi)", "Coke Studio crossover energy that broke the internet.", "Bollywood Songs", ["hindi", "passori", "viral"], "hindibeats", 225, 890000000, 6700000, 340000, 70, "video", { artist: "Ali Sethi x Shae Gill", label: "Coke Studio", verifiedArtist: true }],
+  ["Besharam Rang — Official Video (Pathaan)", "Hindi chartbuster — color, dance, and cinema scale.", "Bollywood Songs", ["hindi", "pathaan", "dance"], "hindibeats", 258, 720000000, 4800000, 250000, 55, "video", { artist: "Shilpa Rao, Caralisa Monteiro", label: "YRF Music", verifiedArtist: true }],
+  ["What Jhumka? — Official Video", "Rocky Aur Rani — playful Hindi wedding-party energy.", "Bollywood Songs", ["hindi", "jhumka"], "hindibeats", 214, 310000000, 2100000, 98000, 40, "video", { artist: "Pritam, Arijit Singh", label: "Saregama", verifiedArtist: true }],
+  ["Sajni — Official Video (Laapataa Ladies)", "Soft Hindi heartbreak — monsoon mood.", "Bollywood Songs", ["hindi", "sajni"], "hindibeats", 248, 280000000, 1900000, 87000, 30, "video", { artist: "Arijit Singh", label: "Zee Music", verifiedArtist: true }],
+  ["Chaleya — Official Video (Jawan)", "Hindi romance meets mass cinema — stadium chorus.", "Bollywood Songs", ["hindi", "chaleya", "jawan"], "hindibeats", 241, 540000000, 3600000, 175000, 50, "video", { artist: "Arijit Singh, Shilpa Rao", label: "T-Series", verifiedArtist: true }],
+  ["Heeriye — Official Video", "Indie-Hindi love track — soft beats, big streams.", "Bollywood Songs", ["hindi", "heeriye", "indie"], "hindibeats", 213, 460000000, 3200000, 142000, 35, "video", { artist: "Jasleen Royal, Arijit Singh", label: "Desi Music Factory", verifiedArtist: true }],
+
+  // —— Pakistani songs ——
+  ["Pasoori — Coke Studio Season 14 (Official)", "Pakistan's global crossover hit — folk fuse meets pop.", "Coke Studio", ["pakistan", "pasoori", "cokestudio"], "pakbeats", 225, 1200000000, 8900000, 420000, 65, "video", { artist: "Ali Sethi, Shae Gill", label: "Coke Studio Pakistan", verifiedArtist: true }],
+  ["Tu Jhoom — Coke Studio (Official Video)", "Abida Parveen x Naseebo Lal — spiritual fire.", "Coke Studio", ["pakistan", "tujhoom", "cokestudio"], "pakbeats", 340, 280000000, 2100000, 98000, 100, "video", { artist: "Abida Parveen, Naseebo Lal", label: "Coke Studio Pakistan", verifiedArtist: true }],
+  ["Afsanay — Official Music Video", "Young Stunners — Karachi storytelling on beat.", "Hip-Hop", ["pakistan", "youngstunners", "rap"], "pakbeats", 248, 190000000, 1500000, 78000, 80, "video", { artist: "Young Stunners", label: "Independent / Pakistan", verifiedArtist: true }],
+  ["Gumaan — Official Video", "Talha Anjum — late-night Urdu introspection.", "Hip-Hop", ["pakistan", "gumaan", "talha"], "pakbeats", 312, 210000000, 1700000, 89000, 70, "video", { artist: "Talha Anjum", label: "Independent / Pakistan", verifiedArtist: true }],
+  ["Kana Yaari — Official Video", "Kaifi Khalil — Balochi-Pashto blend that went viral.", "Pop", ["pakistan", "kanayaari"], "pakbeats", 198, 340000000, 2400000, 112000, 55, "video", { artist: "Kaifi Khalil", label: "Independent / Pakistan", verifiedArtist: true }],
+  ["Sang e Mah OST — Main Tarha", "Pakistani drama OST — soft Urdu romance.", "Pop", ["pakistan", "ost", "sangemah"], "pakbeats", 256, 98000000, 820000, 41000, 90, "video", { artist: "Shuja Haider", label: "HUM Music", verifiedArtist: true }],
+  ["Tere Bin OST — Full Song", "Classic Pakistani drama soundtrack — forever plays.", "Pop", ["pakistan", "ost", "terebin"], "pakbeats", 280, 450000000, 3100000, 156000, 300, "video", { artist: "Various Artists", label: "GEO / HUM", verifiedArtist: true }],
+  ["Coaster Ride — Atif Aslam Live Session", "Pakistani pop king — acoustic club night energy.", "Live Concerts", ["pakistan", "atif", "live"], "pakbeats", 420, 72000000, 980000, 38000, 120, "video", { artist: "Atif Aslam", label: "Tips / Pakistan", verifiedArtist: true }],
+  ["Dil Dil Pakistan — Stadium Singalong", "National pride anthem — crowd thunder.", "Live Concerts", ["pakistan", "dildil", "anthem"], "pakbeats", 240, 56000000, 670000, 29000, 200, "video", { artist: "Vital Signs", label: "EMI Pakistan", verifiedArtist: true }],
+  ["Sajni / Pakistani Indie Mix Hour", "Karachi & Lahore indie playlist visualizer.", "Pop", ["pakistan", "indie", "mix"], "pakbeats", 3600, 12000000, 340000, 18000, 15, "video", { artist: "Pak Beats", label: "Pak Beats", verifiedArtist: true }],
+
+  // —— Pakistani dramas ——
+  ["Tere Bin — Episode 1 (Full)", "Mir & Meerab — the Pakistani drama that ruled timelines.", "Pakistani Dramas", ["pakistan", "drama", "terebin"], "dramapak", 2280, 89000000, 1200000, 89000, 200],
+  ["Tere Bin — Episode 45 Climax Scene", "Peak emotional confrontation — fan-favorite cut.", "Pakistani Dramas", ["pakistan", "drama", "terebin"], "dramapak", 720, 45000000, 780000, 52000, 180],
+  ["Mere Pass Tum Ho — Episode Highlights", "Cult classic Pakistani drama — power and heartbreak.", "Pakistani Dramas", ["pakistan", "drama", "mpth"], "dramapak", 1100, 67000000, 980000, 61000, 400],
+  ["Sinf-e-Aahan — Episode 3 (Full)", "Women's cricket drama — grit and sisterhood.", "Pakistani Dramas", ["pakistan", "drama", "sinfeahan"], "dramapak", 2100, 18000000, 320000, 21000, 150],
+  ["Sang-e-Mah — Episode 1 (Full)", "Balochistan-set epic — tradition vs desire.", "Pakistani Dramas", ["pakistan", "drama", "sangemah"], "dramapak", 2340, 32000000, 540000, 34000, 160],
+  ["Ehd-e-Wafa — Friendship Arc Recap", "Four friends, one promise — emotional recap cut.", "Pakistani Dramas", ["pakistan", "drama", "ehdewafa"], "dramapak", 980, 22000000, 410000, 25000, 250],
+  ["Yakeen Ka Safar — Best Scenes", "Hospital halls and quiet love — curated scenes.", "Pakistani Dramas", ["pakistan", "drama", "yakeen"], "dramapak", 860, 15000000, 280000, 16000, 280],
+  ["Hum Kahan Ke Sachay Thay — Episode 12", "Family secrets spiral — must-watch episode.", "Pakistani Dramas", ["pakistan", "drama", "hkkst"], "dramapak", 2160, 28000000, 490000, 31000, 140],
+  ["Ishq Murshid — Episode 1 (Full)", "Fresh Pakistani drama drop — intrigue and romance.", "Pakistani Dramas", ["pakistan", "drama", "ishqmurshid"], "dramapak", 2220, 41000000, 720000, 45000, 40],
+  ["Kabhi Main Kabhi Tum — Cute Moments", "Soft comedy-romance highlights from the hit drama.", "Pakistani Dramas", ["pakistan", "drama", "kmkt"], "dramapak", 640, 36000000, 610000, 38000, 25],
+  ["Raqeeb Se — Episode 5 (Full)", "Intense emotional drama — latest weekly episode vibe.", "Pakistani Dramas", ["pakistan", "drama", "raqeeb"], "dramapak", 2180, 19000000, 340000, 22000, 18],
+  ["Drama Pak — Weekly Roundup", "What to watch this week on Pakistani TV.", "Pakistani Dramas", ["pakistan", "drama", "roundup"], "dramapak", 720, 8000000, 180000, 12000, 3],
+
+  // —— Lock Upp episodes ——
+  ["Lock Upp — Episode 1: The Inmates Arrive", "Kangana's jail — introductions, rules, and first shocks.", "Lock Upp", ["lockup", "reality", "kangana"], "lockupcentral", 2700, 28000000, 540000, 48000, 300],
+  ["Lock Upp — Episode 5: Weekend Ka Vaar", "Nominations, tasks, and eviction tension.", "Lock Upp", ["lockup", "vaar", "reality"], "lockupcentral", 3000, 22000000, 410000, 36000, 290],
+  ["Lock Upp — Best Fights Compilation", "Loudest showdowns inside the jail — fan edit vibes.", "Lock Upp", ["lockup", "fights", "highlights"], "lockupcentral", 840, 35000000, 670000, 52000, 280],
+  ["Lock Upp — Task of the Week Highlights", "Physical + mental tasks that broke alliances.", "Lock Upp", ["lockup", "tasks"], "lockupcentral", 960, 16000000, 290000, 21000, 275],
+  ["Lock Upp — Eviction Special", "Who left the jail — reactions and host commentary.", "Lock Upp", ["lockup", "eviction"], "lockupcentral", 1800, 19000000, 350000, 28000, 270],
+  ["Lock Upp — Confession Room Secrets", "Whispers that changed the game.", "Lock Upp", ["lockup", "confession"], "lockupcentral", 720, 14000000, 250000, 18000, 265],
+  ["Lock Upp — Finale Night Recap", "Winner crowning, emotional exits, full recap.", "Lock Upp", ["lockup", "finale"], "lockupcentral", 2400, 41000000, 780000, 61000, 260],
+  ["Lock Upp Season 2 — Promo & Expectation", "New inmates buzz — what fans want next.", "Lock Upp", ["lockup", "season2"], "lockupcentral", 480, 9000000, 160000, 14000, 50],
+
+  // —— Turkish clips / dizis ——
+  ["Sen Çal Kapımı — Best Romantic Clips", "Eda & Serkan — iconic Turkish rom-com moments.", "Turkish Dramas", ["turkish", "sencalkapimi", "clips"], "turkclips", 720, 92000000, 1500000, 78000, 100],
+  ["Kara Sevda — Intense Scene Compilation", "Dark love Turkish drama — jealousy and fate.", "Turkish Dramas", ["turkish", "karasevda"], "turkclips", 880, 54000000, 890000, 45000, 180],
+  ["Diriliş: Ertuğrul — Epic Battle Clip", "Legendary Turkish historical action cut.", "Turkish Dramas", ["turkish", "ertugrul", "action"], "turkclips", 640, 120000000, 2100000, 98000, 220],
+  ["Kuruluş: Osman — Season Highlight", "Empire-building drama — sword and strategy.", "Turkish Dramas", ["turkish", "osman"], "turkclips", 900, 78000000, 1200000, 67000, 90],
+  ["Hercai — Miran & Reyyan Emotional Scene", "Turkish mountain romance — tears guaranteed.", "Turkish Dramas", ["turkish", "hercai"], "turkclips", 540, 46000000, 720000, 38000, 140],
+  ["Mucize Doktor — Life-Saving Episode Clip", "Turkish medical drama — hope in the OR.", "Turkish Dramas", ["turkish", "mucizedoktor"], "turkclips", 600, 28000000, 480000, 24000, 110],
+  ["Yalı Çapkını — Latest Episode Scenes", "Family empire drama — weekly hot clips.", "Turkish Dramas", ["turkish", "yalicapkini"], "turkclips", 780, 61000000, 980000, 52000, 20],
+  ["Turkish Drama — English Sub Best Of", "Curated clips with clear English subtitles.", "Turkish Dramas", ["turkish", "english", "subs"], "turkclips", 1100, 33000000, 560000, 29000, 30],
+  ["Çukur — Underground Istanbul Clips", "Gritty Turkish crime drama highlights.", "Turkish Dramas", ["turkish", "cukur"], "turkclips", 700, 25000000, 410000, 21000, 160],
+  ["Turkish Series — Top 10 Starter Guide", "Where to begin if you're new to dizis.", "Turkish Dramas", ["turkish", "guide"], "turkclips", 860, 12000000, 280000, 16000, 12],
+
+  // —— Novels ——
+  ["Peer-e-Kamil — Novel Summary (Urdu)", "Umera Ahmed classic — faith, love, and transformation.", "Novels", ["novel", "urdu", "peerekamil"], "novelnight", 1800, 18000000, 420000, 32000, 40],
+  ["Jannat Ke Pattay — Full Story Recap", "Umera Ahmed — secrets, family, and redemption.", "Novels", ["novel", "urdu", "jannat"], "novelnight", 1600, 12000000, 280000, 21000, 55],
+  ["Namal — Complete Novel Overview", "Nimra Ahmed — mystery, politics, and romance arc.", "Novels", ["novel", "urdu", "namal"], "novelnight", 2100, 15000000, 350000, 26000, 48],
+  ["Hasil — Novel Explained Chapter-wise", "Key chapters broken down for new readers.", "Novels", ["novel", "urdu", "hasil"], "novelnight", 1400, 8000000, 190000, 14000, 70],
+  ["Pride and Prejudice — Novel Audiobook Style", "English classic — opening chapters dramatic reading.", "Novels", ["novel", "english", "austen"], "novelnight", 2400, 22000000, 480000, 28000, 90],
+  ["The Alchemist — Book Summary (10 Minutes)", "Santiago's journey — symbols and lessons.", "Novels", ["novel", "english", "coelho"], "novelnight", 620, 41000000, 890000, 45000, 25],
+  ["Ikigai — Book Talk & Key Lessons", "Purpose, longevity, and slow living — novel night essay.", "Novels", ["novel", "nonfiction", "ikigai"], "novelnight", 780, 16000000, 340000, 18000, 35],
+  ["Urdu Novel Recommendations 2026", "10 must-reads if you love Pakistani fiction.", "Novels", ["novel", "urdu", "list"], "novelnight", 920, 6000000, 150000, 11000, 10],
+  ["How to Start Reading Novels Daily", "A 20-page habit that sticks — practical guide.", "Novels", ["novel", "habits", "reading"], "novelnight", 540, 4500000, 120000, 8000, 14],
+  ["Aangan — Novel to Drama Comparison", "What changed from page to screen.", "Novels", ["novel", "drama", "aangan"], "novelnight", 1100, 7000000, 160000, 12000, 60],
 ];
 
 const REEL_ENTRIES = [
@@ -331,6 +433,15 @@ const REEL_ENTRIES = [
   ["Wildlife: Fox Leap", "Snow pounce.", "Wildlife", ["reel", "fox"], "naturelens", 9, 10200000, 412000, 1],
   ["Startup Tip: Say No", "Focus as a feature.", "Startups", ["reel", "founder"], "startupdeck", 30, 1900000, 67000, 5],
   ["Minecraft Build Flex", "One block at a time.", "Minecraft", ["reel", "build"], "gamepulse", 16, 6800000, 234000, 2],
+  ["Billie — bad guy 15s Hook", "That bassline in short form.", "Music Clips", ["reel", "billie"], "darkroomvevo", 15, 28000000, 890000, 1],
+  ["Lana — Summertime Sadness Clip", "Cliffside melancholy, 20 seconds.", "Music Clips", ["reel", "lana"], "ultraviolencehq", 20, 19000000, 612000, 2],
+  ["Pasoori Dance Trend", "Pakistan's viral chorus challenge.", "Music Clips", ["reel", "pasoori", "pakistan"], "pakbeats", 18, 45000000, 1500000, 0],
+  ["Hindi: Kesariya Hook", "Soft Bollywood romance bite.", "Music Clips", ["reel", "hindi", "kesariya"], "hindibeats", 16, 32000000, 980000, 1],
+  ["Lock Upp Fight Clip", "Jail tension in under 30s.", "Lock Upp", ["reel", "lockup"], "lockupcentral", 28, 12000000, 410000, 3],
+  ["Turkish Kiss Scene Teaser", "Dizi romance — soft fade.", "Turkish Dramas", ["reel", "turkish"], "turkclips", 12, 22000000, 780000, 1],
+  ["Tere Bin Emotional Clip", "Pakistani drama tearjerker bite.", "Pakistani Dramas", ["reel", "terebin"], "dramapak", 22, 18000000, 560000, 2],
+  ["Novel Quote: Peer-e-Kamil", "One line that hits different.", "Novels", ["reel", "novel", "urdu"], "novelnight", 15, 6000000, 210000, 4],
+  ["Atif Live Chorus Crowd", "Stadium singalong energy.", "Music Clips", ["reel", "pakistan", "atif"], "pakbeats", 14, 9000000, 340000, 2],
   ["Valorant Ace Clip", "Clean spray transfer.", "Valorant", ["reel", "ace"], "gamepulse", 14, 8900000, 334000, 1],
   ["Fashion: Scarf Knot", "30-second style upgrade.", "Fashion", ["reel", "style"], "wanderdiaries", 21, 2400000, 82000, 4],
   ["History: Pyramid Fact", "Not built by aliens.", "History", ["reel", "egypt"], "historyvault", 19, 5100000, 178000, 3],
