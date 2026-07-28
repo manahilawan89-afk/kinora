@@ -27,7 +27,7 @@ export default function Sidebar({ open, onClose }) {
         />
       )}
       <aside
-        className={`fixed left-0 top-12 z-40 h-[calc(100dvh-3rem)] w-[min(14rem,80vw)] overflow-y-auto border-r border-zinc-200 bg-white p-3 pb-16 transition-transform dark:border-white/10 dark:bg-[#071412] md:sticky md:w-56 md:translate-x-0 md:pb-3 ${
+        className={`fixed left-0 top-12 z-40 flex h-[calc(100dvh-3rem)] w-[min(14rem,80vw)] flex-col overflow-y-auto border-r border-zinc-200 bg-white p-3 pb-16 transition-transform dark:border-white/10 dark:bg-[#071412] md:static md:z-auto md:h-full md:w-56 md:shrink-0 md:translate-x-0 md:pb-3 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
