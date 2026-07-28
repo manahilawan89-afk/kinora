@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { FiThumbsUp, FiShare2, FiDownload, FiList } from "react-icons/fi";
 import api from "../../services/api";
 import VideoCard from "../../components/video/VideoCard";
+import VideoPlayer from "../../components/video/VideoPlayer";
 import { formatViews, timeAgo, getMediaUrl, getYoutubeEmbed, getYoutubeId } from "../../utils/format";
 
 export default function WatchPage() {
@@ -103,9 +104,9 @@ export default function WatchPage() {
   const isYoutube = Boolean(getYoutubeId(video.videoUrl));
 
   return (
-    <div className="mx-auto flex max-w-[1700px] flex-col gap-6 xl:flex-row">
+    <div className="mx-auto flex max-w-[1700px] flex-col gap-5 xl:flex-row xl:gap-6">
       <div className="min-w-0 flex-1">
-        <div className="aspect-video overflow-hidden rounded-xl bg-black">
+        <div className="-mx-3 aspect-video overflow-hidden bg-black shadow-[0_20px_60px_-20px_rgba(0,0,0,0.45)] ring-1 ring-black/10 sm:-mx-4 sm:rounded-xl md:mx-0 dark:ring-white/5">
           {isYoutube ? (
             <iframe
               key={video._id}
@@ -116,32 +117,35 @@ export default function WatchPage() {
               allowFullScreen
             />
           ) : (
-            <video
+            <VideoPlayer
               key={video._id}
               src={videoSrc}
-              controls
+              title={video.title}
+              subtitles={video.subtitles}
               autoPlay
               className="h-full w-full"
             />
           )}
         </div>
 
-        <h1 className="mt-4 text-xl font-semibold leading-snug">{video.title}</h1>
+        <h1 className="mt-2 text-base font-semibold leading-snug sm:mt-3 sm:text-lg">
+          {video.title}
+        </h1>
 
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4">
+          <div className="flex min-w-0 items-center gap-3">
             <Link
               to={`/channel/${video.owner?.username}`}
-              className="h-10 w-10 overflow-hidden rounded-full bg-zinc-700"
+              className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-zinc-700"
             >
               {video.owner?.avatar && (
                 <img src={video.owner.avatar} alt="" className="h-full w-full object-cover" />
               )}
             </Link>
-            <div>
+            <div className="min-w-0 flex-1">
               <Link
                 to={`/channel/${video.owner?.username}`}
-                className="font-medium hover:underline"
+                className="block truncate font-medium hover:underline"
               >
                 {video.owner?.fullName || video.owner?.username}
               </Link>
@@ -149,15 +153,15 @@ export default function WatchPage() {
                 {formatViews(video.owner?.subscribersCount || 0)} subscribers
               </p>
             </div>
-            <button className="ml-2 rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black">
+            <button className="shrink-0 rounded-full bg-zinc-900 px-3.5 py-2 text-sm font-medium text-white dark:bg-white dark:text-black sm:ml-2 sm:px-4">
               Subscribe
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="scrollbar-hide -mx-1 flex gap-2 overflow-x-auto px-1 pb-0.5">
             <button
               onClick={handleLike}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm ${
+              className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-sm sm:px-4 ${
                 liked
                   ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
                   : "bg-zinc-100 dark:bg-zinc-800"
@@ -168,14 +172,14 @@ export default function WatchPage() {
             </button>
             <button
               onClick={openPlaylistModal}
-              className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800"
+              className="flex shrink-0 items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-sm dark:bg-zinc-800 sm:px-4"
             >
               <FiList /> Save
             </button>
-            <button className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800">
+            <button className="flex shrink-0 items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-sm dark:bg-zinc-800 sm:px-4">
               <FiShare2 /> Share
             </button>
-            <button className="flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-2 text-sm dark:bg-zinc-800">
+            <button className="flex shrink-0 items-center gap-2 rounded-full bg-zinc-100 px-3.5 py-2 text-sm dark:bg-zinc-800 sm:px-4">
               <FiDownload /> Download
             </button>
           </div>

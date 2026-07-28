@@ -16,9 +16,34 @@
   --shell-bg: #071412;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Source Sans 3", system-ui, sans-serif;
   @apply bg-[#f4f7f6] text-zinc-900 antialiased dark:bg-kinora-ink dark:text-zinc-100;
+  overscroll-behavior-y: none;
+}
+
+/* Comfortable tap targets on touch devices */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .font-brand {
@@ -66,4 +91,93 @@ body {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* —— Kinora video player —— */
+.kinora-player {
+  --player-accent: #14b8a6;
+  --player-accent-soft: #2dd4bf;
+  cursor: default;
+  user-select: none;
+}
+
+.kinora-player:fullscreen,
+.kinora-player:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.kinora-player video::cue {
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 1.05em;
+  line-height: 1.35;
+  padding: 0.15em 0.35em;
+}
+
+.player-btn {
+  @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white/95 transition;
+}
+
+.player-btn:hover {
+  @apply bg-white/[0.12] text-white;
+}
+
+.player-btn:active {
+  @apply scale-95 bg-white/[0.18];
+}
+
+.player-volume {
+  height: 4px;
+  appearance: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--player-accent) 0%,
+    var(--player-accent) calc(var(--vol, 100%)),
+    rgba(255, 255, 255, 0.25) calc(var(--vol, 100%))
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.player-volume::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.35);
+  cursor: pointer;
+}
+
+.player-volume::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.35);
+  cursor: pointer;
+}
+
+@keyframes player-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+.animate-player-pop {
+  animation: player-pop 0.65s ease-out forwards;
 }

@@ -27,7 +27,7 @@ export default function Sidebar({ open, onClose }) {
         />
       )}
       <aside
-        className={`fixed left-0 top-14 z-40 h-[calc(100vh-3.5rem)] w-60 overflow-y-auto border-r border-zinc-200 bg-white/90 p-3 backdrop-blur-xl transition-transform dark:border-white/10 dark:bg-kinora-ink/90 md:sticky md:translate-x-0 ${
+        className={`fixed left-0 top-12 z-40 h-[calc(100dvh-3rem)] w-[min(14rem,80vw)] overflow-y-auto border-r border-zinc-200 bg-white/95 p-2 pb-16 backdrop-blur-xl transition-transform dark:border-white/10 dark:bg-kinora-ink/95 md:sticky md:w-52 md:translate-x-0 md:pb-2 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -39,14 +39,14 @@ export default function Sidebar({ open, onClose }) {
               end={end}
               onClick={onClose}
               className={({ isActive }) =>
-                `flex items-center gap-4 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                `flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition ${
                   isActive
                     ? "bg-teal-50 text-teal-800 ring-1 ring-teal-200 dark:bg-gradient-to-r dark:from-kinora-teal/40 dark:to-transparent dark:text-kinora-glow dark:ring-kinora-glow/20"
                     : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
                 }`
               }
             >
-              <Icon size={20} />
+              <Icon size={18} />
               {label}
             </NavLink>
           ))}

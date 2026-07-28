@@ -1,6 +1,10 @@
 const store = require("./store");
 const { hashPassword } = require("./utils/password");
 
+const SAMPLE_SUBTITLES = [
+  { src: "/subtitles/sample-en.vtt", label: "English", lang: "en", default: true },
+];
+
 const SAMPLE_VIDEOS = [
   {
     title: "Big Buck Bunny",
@@ -13,6 +17,7 @@ const SAMPLE_VIDEOS = [
     category: "Animation",
     tags: ["animation", "short film"],
     type: "video",
+    subtitles: SAMPLE_SUBTITLES,
   },
   {
     title: "Elephants Dream",
@@ -25,6 +30,7 @@ const SAMPLE_VIDEOS = [
     category: "Animation",
     tags: ["animation", "open source"],
     type: "video",
+    subtitles: SAMPLE_SUBTITLES,
   },
   {
     title: "For Bigger Blazes",
@@ -152,6 +158,242 @@ const DORAEMON_EPISODES = [
   },
 ];
 
+const DUCKY_VLOGS = [
+  {
+    title: "Ducky Bhai Vlog — Subah Subah Barish Aa Gayi",
+    description: "Morning rain, chai, and classic Ducky Bhai vlog energy on Kinora.",
+    videoUrl: "https://www.youtube.com/watch?v=dXn3ps-QElE",
+    thumbnailUrl: "https://i.ytimg.com/vi/dXn3ps-QElE/hqdefault.jpg",
+    duration: 720,
+    views: 2850000,
+    likesCount: 198000,
+    category: "Vlogs",
+    tags: ["ducky bhai", "vlog", "pakistan"],
+    type: "video",
+  },
+  {
+    title: "Ducky Bhai — Living in Nobita's House for 24 Hours",
+    description: "24-hour challenge vlog with friends and full Ducky Bhai chaos.",
+    videoUrl: "https://www.youtube.com/shorts/OO5wzFPB2lQ",
+    thumbnailUrl: "https://i.ytimg.com/vi/OO5wzFPB2lQ/hqdefault.jpg",
+    duration: 60,
+    views: 4100000,
+    likesCount: 312000,
+    category: "Vlogs",
+    tags: ["ducky bhai", "vlog", "challenge"],
+    type: "video",
+  },
+  {
+    title: "Ducky Bhai Vlog — Food Hunt in Karachi",
+    description: "Street food, biryani stops, and late-night cravings across Karachi.",
+    videoUrl: "https://www.youtube.com/watch?v=dXn3ps-QElE",
+    thumbnailUrl: "https://picsum.photos/seed/ducky-food/640/360.jpg",
+    duration: 840,
+    views: 1920000,
+    likesCount: 145000,
+    category: "Vlogs",
+    tags: ["ducky bhai", "food", "karachi"],
+    type: "video",
+  },
+  {
+    title: "Ducky Bhai Vlog — Gym + Daily Routine",
+    description: "Workout, banter, and a full day in the life vlog.",
+    videoUrl: "https://www.youtube.com/shorts/OO5wzFPB2lQ",
+    thumbnailUrl: "https://picsum.photos/seed/ducky-gym/640/360.jpg",
+    duration: 600,
+    views: 1560000,
+    likesCount: 121000,
+    category: "Vlogs",
+    tags: ["ducky bhai", "gym", "routine"],
+    type: "video",
+  },
+  {
+    title: "Ducky Bhai Vlog — Friends Hangout & Adventures",
+    description: "Friend group chaos, random plans, and unfiltered vlog moments.",
+    videoUrl: "https://www.youtube.com/watch?v=dXn3ps-QElE",
+    thumbnailUrl: "https://picsum.photos/seed/ducky-friends/640/360.jpg",
+    duration: 900,
+    views: 2210000,
+    likesCount: 176000,
+    category: "Vlogs",
+    tags: ["ducky bhai", "friends", "comedy"],
+    type: "video",
+  },
+];
+
+const EXTRA_VIDEOS = [
+  {
+    title: "JavaScript Tutorial for Beginners",
+    description: "A beginner-friendly JavaScript crash course to get you coding fast.",
+    videoUrl: "https://www.youtube.com/watch?v=W6NZfCO5SIk",
+    thumbnailUrl: "https://i.ytimg.com/vi/W6NZfCO5SIk/hqdefault.jpg",
+    duration: 4800,
+    views: 15000000,
+    likesCount: 520000,
+    category: "Tech",
+    tags: ["javascript", "tutorial", "beginner"],
+    type: "video",
+  },
+  {
+    title: "React JS Explained in 10 Minutes",
+    description: "Understand React components, props, and state in one sitting.",
+    videoUrl: "https://www.youtube.com/watch?v=7oRFXbrFhT8",
+    thumbnailUrl: "https://i.ytimg.com/vi/7oRFXbrFhT8/hqdefault.jpg",
+    duration: 600,
+    views: 6200000,
+    likesCount: 310000,
+    category: "Tech",
+    tags: ["react", "javascript", "web dev"],
+    type: "video",
+  },
+  {
+    title: "Node.js in 100 Seconds",
+    description: "What Node.js is and why backend JavaScript took over the web.",
+    videoUrl: "https://www.youtube.com/watch?v=TlB_eWDSMt4",
+    thumbnailUrl: "https://i.ytimg.com/vi/TlB_eWDSMt4/hqdefault.jpg",
+    duration: 125,
+    views: 4100000,
+    likesCount: 198000,
+    category: "Tech",
+    tags: ["nodejs", "backend", "javascript"],
+    type: "video",
+  },
+  {
+    title: "What is an API?",
+    description: "Simple explanation of APIs and how apps talk to each other.",
+    videoUrl: "https://www.youtube.com/watch?v=s7wmiS2mSXY",
+    thumbnailUrl: "https://i.ytimg.com/vi/s7wmiS2mSXY/hqdefault.jpg",
+    duration: 180,
+    views: 2800000,
+    likesCount: 142000,
+    category: "Tech",
+    tags: ["api", "programming", "explained"],
+    type: "video",
+  },
+  {
+    title: "Doraemon — Nobita's Genius Gadget Day",
+    description: "Nobita discovers a gadget that makes him a genius for one day.",
+    videoUrl: "https://www.youtube.com/watch?v=l0PmgTcxlGs",
+    thumbnailUrl: "https://i.ytimg.com/vi/l0PmgTcxlGs/hqdefault.jpg",
+    duration: 1180,
+    views: 2400000,
+    likesCount: 54000,
+    category: "Anime",
+    tags: ["doraemon", "nobita", "hindi"],
+    type: "video",
+  },
+  {
+    title: "Doraemon — Time Machine Adventure (Hindi)",
+    description: "Doraemon and Nobita travel through time with a wild pocket gadget.",
+    videoUrl: "https://www.youtube.com/watch?v=PVlwjjtdVNw",
+    thumbnailUrl: "https://i.ytimg.com/vi/PVlwjjtdVNw/hqdefault.jpg",
+    duration: 1220,
+    views: 1950000,
+    likesCount: 48000,
+    category: "Anime",
+    tags: ["doraemon", "time travel", "cartoon"],
+    type: "video",
+  },
+  {
+    title: "Big Buck Bunny — Open Movie (HD)",
+    description: "Beloved open-source animated short. Free to watch on Kinora.",
+    videoUrl: "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/kinora-bunny-hd/640/360.jpg",
+    duration: 596,
+    views: 980000,
+    likesCount: 42000,
+    category: "Animation",
+    tags: ["animation", "open source", "short film"],
+    type: "video",
+  },
+  {
+    title: "Sintel — Blender Open Movie",
+    description: "Fantasy short about a girl searching for her dragon friend.",
+    videoUrl: "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/kinora-sintel/640/360.jpg",
+    duration: 52,
+    views: 760000,
+    likesCount: 38000,
+    category: "Animation",
+    tags: ["sintel", "blender", "fantasy"],
+    type: "video",
+  },
+  {
+    title: "Kinora Creator Tips — Film Your First Vlog",
+    description: "Quick tips for lighting, framing, and storytelling on Kinora.",
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/kinora-tips/640/360.jpg",
+    duration: 45,
+    views: 124000,
+    likesCount: 8900,
+    category: "Entertainment",
+    tags: ["creator", "tips", "vlog"],
+    type: "video",
+  },
+  {
+    title: "Night Drive Lo-Fi Mix",
+    description: "Chill beats for late-night browsing and background vibes.",
+    videoUrl: "https://www.w3schools.com/html/movie.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/kinora-lofi/640/360.jpg",
+    duration: 180,
+    views: 540000,
+    likesCount: 31000,
+    category: "Entertainment",
+    tags: ["music", "lofi", "chill"],
+    type: "video",
+  },
+];
+
+const EXTRA_REELS = [
+  {
+    title: "Sintel trailer cut",
+    description: "Epic fantasy reel from Blender open movie",
+    videoUrl: "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/reel-sintel/400/700.jpg",
+    duration: 30,
+    views: 180000,
+    likesCount: 14200,
+    category: "Animation",
+    tags: ["reel", "fantasy"],
+    type: "reel",
+  },
+  {
+    title: "Coding flow",
+    description: "Late night dev session reel",
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    thumbnailUrl: "https://picsum.photos/seed/reel-code/400/700.jpg",
+    duration: 25,
+    views: 95000,
+    likesCount: 6800,
+    category: "Tech",
+    tags: ["reel", "coding"],
+    type: "reel",
+  },
+];
+
+function seedMissingVideos(videos, ownerId) {
+  const existingTitles = new Set(store.findVideos({ type: "video" }).map((v) => v.title));
+  const missing = videos.filter((v) => !existingTitles.has(v.title));
+  if (missing.length) {
+    console.log(`Seeding ${missing.length} videos...`);
+    missing.forEach((video) => {
+      store.createVideo({ ...video, ownerId });
+    });
+  }
+  return missing.length;
+}
+
+function seedMissingReels(reels, pickOwner) {
+  const existingTitles = new Set(store.findVideos({ type: "reel" }).map((v) => v.title));
+  const missing = reels.filter((r) => !existingTitles.has(r.title));
+  if (missing.length) {
+    console.log(`Seeding ${missing.length} reels...`);
+    missing.forEach((reel, i) => {
+      store.createVideo({ ...reel, ownerId: pickOwner(i).id });
+    });
+  }
+}
+
 const SAMPLE_REELS = [
   {
     title: "City lights flash",
@@ -276,6 +518,33 @@ async function seedDatabase() {
       store.createVideo({ ...ep, ownerId: doraemon.id });
     });
   }
+
+  let ducky = store.findUser({ username: "duckybhai" });
+  if (!ducky) {
+    console.log("Seeding Ducky Bhai channel...");
+    ducky = store.createUser({
+      username: "duckybhai",
+      email: "ducky@demo.com",
+      password,
+      fullName: "Ducky Bhai",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ducky",
+      subscribersCount: 6200000,
+      role: "user",
+    });
+  }
+  seedMissingVideos(DUCKY_VLOGS, ducky.id);
+
+  const techStudio = store.findUser({ username: "techstudio" }) || creators[0];
+  const animeWorld = store.findUser({ username: "animeworld" }) || creators[1];
+  EXTRA_VIDEOS.forEach((video, i) => {
+    const owner = video.category === "Anime" ? doraemon : i % 2 === 0 ? techStudio : animeWorld;
+    const titles = new Set(store.findVideos({ type: "video" }).map((v) => v.title));
+    if (!titles.has(video.title)) {
+      store.createVideo({ ...video, ownerId: owner.id });
+    }
+  });
+
+  seedMissingReels(EXTRA_REELS, (i) => creators[i % creators.length]);
 
   const demo = store.findUser({ email: "demo@youtube.com" });
   if (demo && store.findPlaylistsByOwner(demo.id).length === 0) {

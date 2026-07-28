@@ -22,26 +22,30 @@ export default function ChannelPage() {
 
   return (
     <section>
-      <div className="mb-8 flex items-center gap-4">
-        <div className="h-20 w-20 overflow-hidden rounded-full bg-zinc-700">
-          {channel.avatar && (
-            <img src={channel.avatar} alt="" className="h-full w-full object-cover" />
-          )}
+      <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-zinc-700 sm:h-20 sm:w-20">
+            {channel.avatar && (
+              <img src={channel.avatar} alt="" className="h-full w-full object-cover" />
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <h1 className="truncate text-xl font-bold sm:text-2xl">
+              {channel.fullName || channel.username}
+            </h1>
+            <p className="text-sm text-zinc-500">
+              @{channel.username} · {formatViews(channel.subscribersCount)} subscribers
+            </p>
+            {channel.bio && <p className="mt-2 line-clamp-3 text-sm sm:line-clamp-none">{channel.bio}</p>}
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold">{channel.fullName || channel.username}</h1>
-          <p className="text-sm text-zinc-500">
-            @{channel.username} · {formatViews(channel.subscribersCount)} subscribers
-          </p>
-          {channel.bio && <p className="mt-2 text-sm">{channel.bio}</p>}
-        </div>
-        <button className="ml-auto rounded-full bg-zinc-900 px-6 py-2 text-sm font-medium text-white dark:bg-white dark:text-black">
+        <button className="w-full rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white dark:bg-white dark:text-black sm:ml-auto sm:w-auto sm:py-2">
           Subscribe
         </button>
       </div>
 
       <h2 className="mb-4 text-lg font-medium">Videos</h2>
-      <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-3 xl:grid-cols-4">
         {videos.map((video) => (
           <VideoCard key={video._id} video={video} />
         ))}

@@ -16,6 +16,14 @@ const videoSchema = new mongoose.Schema(
     commentsCount: { type: Number, default: 0 },
     isPublic: { type: Boolean, default: true },
     allowDownload: { type: Boolean, default: false },
+    subtitles: [
+      {
+        src: { type: String, required: true },
+        label: { type: String, default: "English" },
+        lang: { type: String, default: "en" },
+        default: { type: Boolean, default: false },
+      },
+    ],
     pinnedComment: { type: mongoose.Schema.Types.ObjectId, ref: "Comment", default: null },
   },
   { timestamps: true }

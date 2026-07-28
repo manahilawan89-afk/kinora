@@ -31,8 +31,8 @@ export default function VideoCard({ video, layout = "grid" }) {
   if (layout === "list") {
     return (
       <Link to={`/watch/${video._id}`} className="group flex gap-3">
-        <div className="relative w-44 shrink-0 sm:w-52">
-          <div className="aspect-video overflow-hidden rounded-xl bg-zinc-200 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-white/10">
+        <div className="relative w-36 shrink-0 sm:w-44 md:w-52">
+          <div className="aspect-video overflow-hidden rounded-lg bg-zinc-200 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-white/10 sm:rounded-xl">
             <MediaThumb
               thumbnailUrl={video.thumbnailUrl}
               videoUrl={video.videoUrl}
@@ -40,19 +40,19 @@ export default function VideoCard({ video, layout = "grid" }) {
             />
           </div>
           {video.duration > 0 && (
-            <span className="absolute bottom-1.5 right-1.5 rounded-md bg-black/80 px-1.5 py-0.5 text-[11px] font-medium text-white">
+            <span className="absolute bottom-1.5 right-1.5 rounded-md bg-black/80 px-1.5 py-0.5 text-[10px] font-medium text-white sm:text-[11px]">
               {formatDuration(video.duration)}
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1 py-0.5">
-          <h3 className="line-clamp-2 font-medium leading-snug text-zinc-900 transition group-hover:text-teal-700 dark:text-zinc-50 dark:group-hover:text-kinora-glow">
+          <h3 className="line-clamp-2 text-sm font-medium leading-snug text-zinc-900 transition group-hover:text-teal-700 dark:text-zinc-50 dark:group-hover:text-kinora-glow sm:text-base">
             {video.title}
           </h3>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 truncate text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
             {video.owner?.fullName || video.owner?.username}
           </p>
-          <p className="text-sm text-zinc-500">
+          <p className="text-xs text-zinc-500 sm:text-sm">
             {formatViews(video.views)} views · {timeAgo(video.createdAt)}
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function VideoCard({ video, layout = "grid" }) {
         onMouseEnter={startPreview}
         onMouseLeave={stopPreview}
       >
-        <div className="relative aspect-video overflow-hidden rounded-2xl bg-zinc-200 shadow-lg shadow-zinc-900/10 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)] dark:ring-white/10">
+        <div className="relative aspect-video overflow-hidden rounded-lg bg-zinc-200 shadow shadow-zinc-900/5 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-white/10">
           <div className={`absolute inset-0 transition duration-300 ${hovering ? "opacity-0" : "opacity-100"}`}>
             <MediaThumb
               thumbnailUrl={video.thumbnailUrl}
@@ -97,8 +97,8 @@ export default function VideoCard({ video, layout = "grid" }) {
               hovering ? "opacity-0" : "opacity-0 group-hover:opacity-100"
             }`}
           >
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-kinora-teal/90 text-white shadow-lg backdrop-blur">
-              <FiPlay size={22} className="ml-0.5" />
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-kinora-teal/90 text-white shadow backdrop-blur">
+              <FiPlay size={18} className="ml-0.5" />
             </span>
           </div>
           {video.duration > 0 && (
@@ -112,14 +112,14 @@ export default function VideoCard({ video, layout = "grid" }) {
             </span>
           )}
         </div>
-        <div className="mt-3 flex gap-3">
-          <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-zinc-800 ring-2 ring-kinora-teal/30">
+        <div className="mt-2 flex gap-2">
+          <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full bg-zinc-800 ring-1 ring-kinora-teal/30">
             {video.owner?.avatar && (
               <img src={video.owner.avatar} alt="" className="h-full w-full object-cover" />
             )}
           </div>
           <div className="min-w-0">
-            <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-zinc-900 dark:text-zinc-50">
+            <h3 className="line-clamp-2 text-xs font-semibold leading-snug text-zinc-900 dark:text-zinc-50 sm:text-sm">
               {video.title}
             </h3>
             <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">

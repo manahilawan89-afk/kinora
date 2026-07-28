@@ -5,8 +5,8 @@ export default function BrandLogo({ className = "" }) {
     <Link to="/" className={`group flex items-center gap-2.5 ${className}`}>
       <span className="relative inline-flex animate-floaty">
         <svg
-          width="34"
-          height="34"
+          width="28"
+          height="28"
           viewBox="0 0 40 40"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ export default function BrandLogo({ className = "" }) {
           <circle cx="30.5" cy="11.5" r="3.2" fill="#F59E0B" />
         </svg>
       </span>
-      <span className="font-brand hidden text-[1.4rem] font-semibold tracking-tight text-zinc-900 dark:text-white sm:block">
+      <span className="font-brand truncate text-base font-semibold tracking-tight text-zinc-900 dark:text-white sm:text-lg">
         Kinora
       </span>
     </Link>

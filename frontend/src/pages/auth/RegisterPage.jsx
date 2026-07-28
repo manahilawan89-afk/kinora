@@ -40,12 +40,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-md items-center">
+    <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-1 sm:min-h-[70vh]">
       <motion.form
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         onSubmit={onSubmit}
-        className="w-full space-y-4 rounded-3xl border border-zinc-200 bg-white p-8 shadow-xl shadow-zinc-900/10 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_30px_80px_rgba(0,0,0,0.4)] dark:backdrop-blur-xl"
+        className="w-full space-y-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-xl shadow-zinc-900/10 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_30px_80px_rgba(0,0,0,0.4)] dark:backdrop-blur-xl sm:rounded-3xl sm:p-8"
       >
         <div className="mb-2 flex justify-center">
           <BrandLogo />

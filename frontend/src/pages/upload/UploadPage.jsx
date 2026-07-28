@@ -82,14 +82,14 @@ export default function UploadPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 text-2xl font-semibold">Upload to Kinora</h1>
+      <h1 className="mb-5 text-xl font-semibold sm:mb-6 sm:text-2xl">Upload to Kinora</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-2 gap-3">
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setContentType("video")}
-            className={`rounded-xl border px-4 py-3 text-left text-sm font-medium ${
+            className={`rounded-xl border px-3 py-3 text-left text-sm font-medium sm:px-4 ${
               contentType === "video"
                 ? "border-teal-600 bg-teal-50 dark:bg-teal-950/40"
                 : "border-zinc-300 dark:border-zinc-700"
@@ -103,7 +103,7 @@ export default function UploadPage() {
           <button
             type="button"
             onClick={() => setContentType("reel")}
-            className={`rounded-xl border px-4 py-3 text-left text-sm font-medium ${
+            className={`rounded-xl border px-3 py-3 text-left text-sm font-medium sm:px-4 ${
               contentType === "reel"
                 ? "border-teal-600 bg-teal-50 dark:bg-teal-950/40"
                 : "border-zinc-300 dark:border-zinc-700"
@@ -124,14 +124,14 @@ export default function UploadPage() {
             setDragOver(false);
             handleFile(e.dataTransfer.files[0]);
           }}
-          className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-colors ${
+          className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-colors sm:p-12 ${
             dragOver
               ? "border-teal-600 bg-teal-50 dark:bg-teal-950/20"
               : "border-zinc-300 dark:border-zinc-700"
           }`}
         >
-          <FiUploadCloud size={48} className="mb-4 text-zinc-400" />
-          <p className="mb-2 text-lg font-medium">Drag and drop video file</p>
+          <FiUploadCloud size={40} className="mb-3 text-zinc-400 sm:mb-4 sm:h-12 sm:w-12" />
+          <p className="mb-2 text-base font-medium sm:text-lg">Drag and drop video file</p>
           <p className="mb-4 text-sm text-zinc-500">or</p>
           <label className="cursor-pointer rounded-full bg-teal-700 px-6 py-2 text-sm font-medium text-white hover:bg-teal-800">
             Select file

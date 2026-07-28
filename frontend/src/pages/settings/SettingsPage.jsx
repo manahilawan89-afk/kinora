@@ -114,10 +114,10 @@ export default function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <h1 className="mb-6 text-2xl font-semibold">Settings</h1>
+      <h1 className="mb-5 text-xl font-semibold sm:mb-6 sm:text-2xl">Settings</h1>
 
-      <div className="flex flex-col gap-6 md:flex-row">
-        <nav className="flex shrink-0 gap-1 overflow-x-auto md:w-48 md:flex-col">
+      <div className="flex flex-col gap-5 md:flex-row md:gap-6">
+        <nav className="scrollbar-hide flex shrink-0 gap-1 overflow-x-auto md:w-48 md:flex-col">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -126,7 +126,7 @@ export default function SettingsPage() {
                 setError("");
                 setMessage("");
               }}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium whitespace-nowrap ${
+              className={`flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium whitespace-nowrap sm:gap-3 ${
                 tab === id
                   ? "bg-zinc-100 dark:bg-zinc-800"
                   : "hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
@@ -138,7 +138,7 @@ export default function SettingsPage() {
           ))}
         </nav>
 
-        <div className="min-w-0 flex-1 rounded-xl border border-zinc-200 p-5 dark:border-zinc-800 md:p-6">
+        <div className="min-w-0 flex-1 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800 sm:p-5 md:p-6">
           {(message || error) && (
             <div
               className={`mb-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${

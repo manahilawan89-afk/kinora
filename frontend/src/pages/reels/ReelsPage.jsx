@@ -51,7 +51,7 @@ function ReelCard({ reel, active, muted, onToggleMute }) {
   }
 
   return (
-    <div className="relative flex h-[calc(100vh-3.5rem)] w-full snap-start snap-always items-center justify-center bg-black">
+    <div className="relative flex h-[calc(100dvh-3rem-3rem)] w-full snap-start snap-always items-center justify-center bg-black md:h-[calc(100dvh-3rem)]">
       <video
         ref={videoRef}
         src={getMediaUrl(reel.videoUrl)}
@@ -82,52 +82,52 @@ function ReelCard({ reel, active, muted, onToggleMute }) {
         )}
       </AnimatePresence>
 
-      <div className="absolute bottom-20 left-4 right-20 z-10 text-white md:bottom-12">
+      <div className="absolute bottom-16 left-3 right-16 z-10 text-white sm:bottom-20 sm:left-4 sm:right-20 md:bottom-12">
         <Link
           to={`/channel/${reel.owner?.username}`}
-          className="pointer-events-auto mb-3 inline-flex items-center gap-2"
+          className="pointer-events-auto mb-2 inline-flex items-center gap-2 sm:mb-3"
         >
-          <span className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-kinora-ember">
+          <span className="h-9 w-9 overflow-hidden rounded-full ring-2 ring-kinora-ember sm:h-10 sm:w-10">
             {reel.owner?.avatar && (
               <img src={reel.owner.avatar} alt="" className="h-full w-full object-cover" />
             )}
           </span>
-          <span className="font-semibold">@{reel.owner?.username}</span>
+          <span className="text-sm font-semibold sm:text-base">@{reel.owner?.username}</span>
         </Link>
-        <h2 className="font-brand text-lg font-semibold">{reel.title}</h2>
+        <h2 className="font-brand text-base font-semibold sm:text-lg">{reel.title}</h2>
         <p className="mt-1 line-clamp-2 text-sm text-white/75">{reel.description}</p>
-        <p className="mt-3 flex items-center gap-2 text-xs text-kinora-glow">
+        <p className="mt-2 flex items-center gap-2 text-xs text-kinora-glow sm:mt-3">
           <FiMusic size={14} className="animate-pulse" /> Original sound · Kinora Reels
         </p>
       </div>
 
-      <div className="absolute bottom-28 right-3 z-10 flex flex-col items-center gap-5 text-white md:bottom-16 md:right-8">
+      <div className="absolute bottom-20 right-2 z-10 flex flex-col items-center gap-4 text-white sm:bottom-28 sm:right-3 sm:gap-5 md:bottom-16 md:right-8">
         <button onClick={handleLike} className="flex flex-col items-center gap-1">
           <span
-            className={`rounded-full bg-black/50 p-3 backdrop-blur ${
+            className={`rounded-full bg-black/50 p-2.5 backdrop-blur sm:p-3 ${
               liked ? "text-rose-400" : ""
             }`}
           >
-            <FiHeart size={26} fill={liked ? "currentColor" : "none"} />
+            <FiHeart size={24} fill={liked ? "currentColor" : "none"} />
           </span>
           <span className="text-xs font-medium">{formatViews(likesCount)}</span>
         </button>
         <div className="flex flex-col items-center gap-1">
-          <span className="rounded-full bg-black/50 p-3 backdrop-blur">
-            <FiMessageCircle size={26} />
+          <span className="rounded-full bg-black/50 p-2.5 backdrop-blur sm:p-3">
+            <FiMessageCircle size={24} />
           </span>
           <span className="text-xs">{formatViews(reel.commentsCount || 0)}</span>
         </div>
         <button
           onClick={onToggleMute}
-          className="rounded-full bg-black/50 p-3 backdrop-blur"
+          className="rounded-full bg-black/50 p-2.5 backdrop-blur sm:p-3"
           aria-label="Toggle mute"
         >
-          {muted ? <FiVolumeX size={22} /> : <FiVolume2 size={22} />}
+          {muted ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
         </button>
       </div>
 
-      <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[11px] text-white/40">
+      <p className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] text-white/40 sm:bottom-4 sm:text-[11px]">
         Swipe up · double-tap to like
       </p>
     </div>
@@ -181,7 +181,7 @@ export default function ReelsPage() {
   return (
     <div
       ref={containerRef}
-      className="h-[calc(100vh-3.5rem)] overflow-y-auto scroll-smooth snap-y snap-mandatory"
+      className="h-[calc(100dvh-3rem-3rem)] overflow-y-auto scroll-smooth snap-y snap-mandatory md:h-[calc(100dvh-3rem)]"
     >
       {reels.map((reel, index) => (
         <div key={reel._id} data-reel-index={index}>

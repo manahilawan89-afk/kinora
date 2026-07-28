@@ -74,9 +74,13 @@ export default function HomePage() {
       : "";
 
   return (
-    <section className="-mx-4 -mt-4 md:-mx-6 md:-mt-6">
-      {/* Full-bleed cinematic stage */}
-      <div className="relative min-h-[72vh] w-full overflow-hidden bg-zinc-950 md:min-h-[78vh]">
+    <section className="-mx-2 -mt-2 sm:-mx-3 sm:-mt-3 md:-mx-5 md:-mt-5">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45 }}
+        className="relative min-h-[44vh] w-full overflow-hidden bg-zinc-950 sm:min-h-[48vh] md:min-h-[52vh]"
+      >
         {featured ? (
           <>
             {trailer ? (
@@ -102,84 +106,77 @@ export default function HomePage() {
 
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#071412] via-transparent to-black/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,transparent_0%,rgba(0,0,0,0.35)_70%)]" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="relative z-10 flex min-h-[72vh] flex-col justify-end px-5 pb-12 pt-16 md:min-h-[78vh] md:px-10 md:pb-16 lg:px-14"
-        >
-          <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-200 backdrop-blur">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+        <div className="relative z-10 flex min-h-[44vh] flex-col justify-end px-3 pb-6 pt-10 sm:min-h-[48vh] sm:px-5 sm:pb-8 sm:pt-12 md:min-h-[52vh] md:px-8 md:pb-10">
+          <div className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-teal-200 backdrop-blur">
+            <span className="h-1 w-1 animate-pulse rounded-full bg-amber-400" />
             Kinora Originals
           </div>
 
-          <h1 className="font-brand max-w-2xl text-4xl font-bold leading-[1.05] text-white drop-shadow-lg md:text-6xl lg:text-7xl">
+          <h1 className="font-brand max-w-lg text-xl font-bold leading-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
             {featured?.title || "Press play on the night"}
           </h1>
 
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-zinc-200 md:text-lg">
+          <p className="mt-2 line-clamp-2 max-w-md text-xs text-zinc-200 sm:line-clamp-3 sm:text-sm">
             {featured?.description ||
               "Cinematic watches, addictive Reels, and playlists that stick — all in one feed."}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
+          <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-4">
             {featured && (
               <Link
                 to={`/watch/${featured._id}`}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02] hover:bg-teal-50"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-black hover:bg-teal-50 sm:px-4 sm:py-2 sm:text-sm"
               >
-                <FiPlay className="fill-black" /> Play
+                <FiPlay className="fill-black" size={13} /> Play
               </Link>
             )}
             <Link
               to="/reels"
-              className="inline-flex items-center gap-2 rounded-full bg-teal-500/90 px-6 py-3 text-sm font-bold text-black transition hover:bg-teal-400"
+              className="inline-flex items-center gap-1.5 rounded-full bg-teal-500/90 px-3.5 py-1.5 text-xs font-bold text-black hover:bg-teal-400 sm:px-4 sm:py-2 sm:text-sm"
             >
-              <FiFilm /> Reels
+              <FiFilm size={13} /> Reels
             </Link>
             <Link
               to="/playlists"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/30 px-5 py-3 text-sm font-semibold text-white backdrop-blur hover:bg-black/50"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/30 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur hover:bg-black/50 sm:px-3.5 sm:py-2 sm:text-sm"
             >
-              <FiPlus /> My list
+              <FiPlus size={13} /> My list
             </Link>
           </div>
 
           {featured && (
-            <p className="mt-5 text-xs font-medium uppercase tracking-wider text-zinc-400">
+            <p className="mt-2.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400 sm:text-[11px]">
               {featured.category || "Featured"} · {formatViews(featured.views)} views ·{" "}
               {featured.owner?.fullName || featured.owner?.username}
             </p>
           )}
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
-      {/* Content below — matches page theme */}
-      <div className="space-y-10 bg-transparent px-4 py-8 md:px-6">
+      <div className="space-y-5 bg-transparent px-2 py-4 sm:space-y-6 sm:px-3 sm:py-6 md:px-5">
         {reels.length > 0 && (
           <div>
-            <div className="mb-4 flex items-end justify-between">
-              <div>
-                <h2 className="font-brand text-xl font-semibold text-zinc-900 dark:text-white">
+            <div className="mb-3 flex items-end justify-between gap-2">
+              <div className="min-w-0">
+                <h2 className="font-brand text-base font-semibold text-zinc-900 dark:text-white sm:text-lg">
                   Reels drop
                 </h2>
-                <p className="text-sm text-zinc-500">Vertical heat — open the feed</p>
+                <p className="text-xs text-zinc-500">Vertical heat — open the feed</p>
               </div>
               <Link
                 to="/reels"
-                className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 dark:text-teal-300"
+                className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-teal-700 dark:text-teal-300 sm:text-sm"
               >
-                Open feed <FiArrowRight />
+                Open feed <FiArrowRight size={14} />
               </Link>
             </div>
-            <div className="scrollbar-hide flex gap-3 overflow-x-auto pb-1">
+            <div className="-mx-1 scrollbar-hide flex gap-2 overflow-x-auto px-1 pb-0.5">
               {reels.map((reel) => (
                 <Link
                   key={reel._id}
                   to="/reels"
-                  className="group relative h-64 w-40 shrink-0 overflow-hidden rounded-2xl shadow-lg ring-1 ring-zinc-200 dark:ring-white/10"
+                  className="group relative h-44 w-28 shrink-0 overflow-hidden rounded-xl shadow ring-1 ring-zinc-200 dark:ring-white/10 sm:h-52 sm:w-32"
                 >
                   <MediaThumb
                     thumbnailUrl={reel.thumbnailUrl}
@@ -187,11 +184,11 @@ export default function HomePage() {
                     className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-                  <span className="absolute right-2 top-2 rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold text-black">
+                  <span className="absolute right-1.5 top-1.5 rounded bg-amber-400 px-1 py-0.5 text-[9px] font-bold text-black">
                     REEL
                   </span>
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <p className="line-clamp-2 text-xs font-semibold text-white">
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <p className="line-clamp-2 text-[11px] font-semibold text-white">
                       {reel.title}
                     </p>
                   </div>
@@ -201,12 +198,12 @@ export default function HomePage() {
           </div>
         )}
 
-        <div className="scrollbar-hide flex gap-2 overflow-x-auto">
+        <div className="-mx-1 scrollbar-hide flex gap-1.5 overflow-x-auto px-1 pb-0.5">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${
+              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition sm:text-sm ${
                 activeCategory === cat
                   ? "bg-zinc-900 text-white dark:bg-white dark:text-black"
                   : "bg-zinc-200/80 text-zinc-700 hover:bg-zinc-300 dark:bg-white/10 dark:text-zinc-300 dark:hover:bg-white/15"
@@ -218,23 +215,23 @@ export default function HomePage() {
         </div>
 
         <div>
-          <h2 className="font-brand mb-5 text-xl font-semibold text-zinc-900 dark:text-white">
+          <h2 className="font-brand mb-3 text-base font-semibold text-zinc-900 dark:text-white sm:text-lg">
             {activeCategory === "All" ? "Continue exploring" : activeCategory}
           </h2>
 
           {loading ? (
-            <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="aspect-video rounded-2xl bg-zinc-200 dark:bg-white/5" />
-                  <div className="mt-3 h-4 w-3/4 rounded bg-zinc-200 dark:bg-white/5" />
+                  <div className="aspect-video rounded-lg bg-zinc-200 dark:bg-white/5" />
+                  <div className="mt-2 h-3 w-3/4 rounded bg-zinc-200 dark:bg-white/5" />
                 </div>
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <p className="text-zinc-500">Nothing in this category yet.</p>
+            <p className="text-sm text-zinc-500">Nothing in this category yet.</p>
           ) : (
-            <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filtered.map((video) => (
                 <VideoCard key={video._id} video={video} />
               ))}
