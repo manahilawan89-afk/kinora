@@ -3,24 +3,19 @@
  * Thumbnails use unique picsum seeds; playback rotates through royalty-free sample MP4s.
  */
 
-const CATALOG_VERSION = 4;
+const CATALOG_VERSION = 5;
 
+/** Reliable public demo MP4s (Google sample bucket now returns 403). */
 const SAMPLE_MP4 = [
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
-  "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
-  "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+  "https://www.w3schools.com/html/mov_bbb.mp4",
+  "https://www.w3schools.com/html/movie.mp4",
+  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
+  "https://filesamples.com/samples/video/mp4/sample_640x360.mp4",
 ];
 
 const CREATORS = [

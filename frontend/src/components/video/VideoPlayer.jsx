@@ -15,6 +15,30 @@ import { formatDuration } from "../../utils/format";
 const SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 const SKIP_SECONDS = 15;
 
+/** Working public demo streams (Google sample bucket is 403 now). */
+const FALLBACK_SOURCES = [
+  "https://www.w3schools.com/html/mov_bbb.mp4",
+  "https://www.w3schools.com/html/movie.mp4",
+  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
+  "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
+];
+
+function resolvePlayableSrc(src = "") {
+  if (!src) return FALLBACK_SOURCES[0];
+  const broken =
+    src.includes("gtv-videos-bucket") ||
+    src.includes("download.blender.org") ||
+    src.includes("commondatastorage.googleapis.com/gtv-videos-bucket");
+  if (broken) {
+    let hash = 0;
+    for (let i = 0; i < src.length; i += 1) hash = (hash + src.charCodeAt(i) * (i + 1)) % FALLBACK_SOURCES.length;
+    return FALLBACK_SOURCES[hash];
+  }
+  return src;
+}
+
 function SkipIcon({ direction = "forward", seconds = 15 }) {
   const isBack = direction === "back";
   return (
@@ -105,6 +129,9 @@ export default function VideoPlayer({
   const [seeking, setSeeking] = useState(false);
   const [flash, setFlash] = useState(null);
   const [volumeOpen, setVolumeOpen] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [activeSrc, setActiveSrc] = useState(() => resolvePlayableSrc(src));
+  const fallbackIndexRef = useRef(0);
 
   const subtitleTracks = subtitles || [];
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -221,6 +248,7 @@ export default function VideoPlayer({
       }
     };
     const onLoadedMetadata = () => {
+      setLoadError(false);
       setDuration(video.duration || 0);
       video.playbackRate = speed;
       const defaultIndex = subtitleTracks.findIndex((track) => track.default);
@@ -234,13 +262,30 @@ export default function VideoPlayer({
           video.textTracks[i].mode = "hidden";
         }
       }
-      if (autoPlay) video.play().catch(() => {});
+      if (autoPlay) {
+        video.muted = true;
+        setMuted(true);
+        video.play().catch(() => {});
+      }
     };
     const onVolumeChange = () => {
       setVolume(video.volume);
       setMuted(video.muted);
     };
     const onEnded = () => {
+      setPlaying(false);
+      setShowControls(true);
+    };
+    const onError = () => {
+      const next = (fallbackIndexRef.current + 1) % FALLBACK_SOURCES.length;
+      fallbackIndexRef.current = next;
+      const candidate = FALLBACK_SOURCES[next];
+      if (candidate && candidate !== video.currentSrc) {
+        setActiveSrc(candidate);
+        setLoadError(false);
+        return;
+      }
+      setLoadError(true);
       setPlaying(false);
       setShowControls(true);
     };
@@ -252,6 +297,7 @@ export default function VideoPlayer({
     video.addEventListener("volumechange", onVolumeChange);
     video.addEventListener("ended", onEnded);
     video.addEventListener("progress", onTimeUpdate);
+    video.addEventListener("error", onError);
 
     return () => {
       video.removeEventListener("play", onPlay);
@@ -261,8 +307,21 @@ export default function VideoPlayer({
       video.removeEventListener("volumechange", onVolumeChange);
       video.removeEventListener("ended", onEnded);
       video.removeEventListener("progress", onTimeUpdate);
+      video.removeEventListener("error", onError);
     };
-  }, [autoPlay, revealControls, seeking, speed, src, subtitleTracks]);
+  }, [autoPlay, revealControls, seeking, speed, activeSrc, subtitleTracks]);
+
+  useEffect(() => {
+    fallbackIndexRef.current = 0;
+    setActiveSrc(resolvePlayableSrc(src));
+    setLoadError(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setBuffered(0);
+    setActiveMenu(null);
+    setActiveTrack(-1);
+    setFlash(null);
+  }, [src]);
 
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -325,15 +384,6 @@ export default function VideoPlayer({
     };
   }, []);
 
-  useEffect(() => {
-    setActiveMenu(null);
-    setActiveTrack(-1);
-    setCurrentTime(0);
-    setDuration(0);
-    setBuffered(0);
-    setFlash(null);
-  }, [src]);
-
   const volumeIcon =
     muted || volume === 0 ? (
       <FiVolumeX size={20} />
@@ -358,9 +408,11 @@ export default function VideoPlayer({
     >
       <video
         ref={videoRef}
-        src={src}
+        key={activeSrc}
+        src={activeSrc}
         title={title}
         playsInline
+        preload="metadata"
         className="h-full w-full object-contain"
         onClick={(e) => {
           e.stopPropagation();
@@ -387,6 +439,24 @@ export default function VideoPlayer({
           />
         ))}
       </video>
+
+      {loadError && (
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 bg-black/80 px-4 text-center">
+          <p className="text-sm font-medium text-white">Video couldn’t load</p>
+          <button
+            type="button"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500"
+            onClick={(e) => {
+              e.stopPropagation();
+              fallbackIndexRef.current = 0;
+              setActiveSrc(FALLBACK_SOURCES[0]);
+              setLoadError(false);
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      )}
 
       {/* Ambient gradients */}
       <div

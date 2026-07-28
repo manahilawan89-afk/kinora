@@ -231,8 +231,28 @@ const store = {
 
   populateVideo(video) {
     const owner = this.findUserById(video.ownerId);
+    let videoUrl = video.videoUrl || "";
+    if (
+      videoUrl.includes("gtv-videos-bucket") ||
+      videoUrl.includes("download.blender.org") ||
+      videoUrl.includes("commondatastorage.googleapis.com/gtv-videos-bucket")
+    ) {
+      const pool = [
+        "https://www.w3schools.com/html/mov_bbb.mp4",
+        "https://www.w3schools.com/html/movie.mp4",
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
+        "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
+        "https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
+      ];
+      let hash = 0;
+      const key = video.id || videoUrl;
+      for (let i = 0; i < key.length; i += 1) hash = (hash + key.charCodeAt(i) * (i + 1)) % pool.length;
+      videoUrl = pool[hash];
+    }
     return {
       ...video,
+      videoUrl,
       owner: owner
         ? withId({
             ...owner,
