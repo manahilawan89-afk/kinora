@@ -460,6 +460,101 @@ function daysAgoISO(days) {
   return d.toISOString();
 }
 
+function pickThumbnailTheme({ category = "", title = "", tags = [], artistName = "" }) {
+  const hay = `${category} ${title} ${tags.join(" ")} ${artistName}`.toLowerCase();
+
+  if (hay.includes("billie")) {
+    return { bg1: "#0f172a", bg2: "#84cc16", accent: "#111827", pill: "BILLIE EILISH", icon: "B" };
+  }
+  if (hay.includes("lana")) {
+    return { bg1: "#4c1d95", bg2: "#f9a8d4", accent: "#fdf2f8", pill: "LANA DEL REY", icon: "L" };
+  }
+  if (hay.includes("lock upp") || hay.includes("lockup")) {
+    return { bg1: "#111827", bg2: "#f59e0b", accent: "#fef3c7", pill: "LOCK UPP", icon: "U" };
+  }
+  if (hay.includes("pakistani drama") || hay.includes("drama pak") || hay.includes("tere bin")) {
+    return { bg1: "#14532d", bg2: "#0f766e", accent: "#dcfce7", pill: "PAK DRAMA", icon: "D" };
+  }
+  if (hay.includes("turkish")) {
+    return { bg1: "#7f1d1d", bg2: "#f97316", accent: "#ffedd5", pill: "TURKISH CLIP", icon: "T" };
+  }
+  if (hay.includes("novel")) {
+    return { bg1: "#422006", bg2: "#d97706", accent: "#fef3c7", pill: "NOVEL", icon: "N" };
+  }
+  if (hay.includes("pakistan") || hay.includes("pasoori") || hay.includes("atif") || hay.includes("coke studio")) {
+    return { bg1: "#064e3b", bg2: "#10b981", accent: "#d1fae5", pill: "PAKISTAN", icon: "P" };
+  }
+  if (hay.includes("hindi") || hay.includes("bollywood") || hay.includes("kesariya") || hay.includes("tum hi ho")) {
+    return { bg1: "#7c2d12", bg2: "#fb7185", accent: "#ffe4e6", pill: "HINDI", icon: "H" };
+  }
+  if (hay.includes("music") || hay.includes("official") || hay.includes("concert") || hay.includes("song")) {
+    return { bg1: "#1d4ed8", bg2: "#7c3aed", accent: "#e0e7ff", pill: "MUSIC", icon: "M" };
+  }
+  return { bg1: "#134e4a", bg2: "#0f766e", accent: "#ccfbf1", pill: String(category || "KINORA").toUpperCase(), icon: "K" };
+}
+
+function escapeSvg(text = "") {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function chunkText(text = "", max = 26, lines = 2) {
+  const words = String(text).split(/\s+/).filter(Boolean);
+  const out = [];
+  let current = "";
+  for (const word of words) {
+    const next = current ? `${current} ${word}` : word;
+    if (next.length <= max) {
+      current = next;
+    } else {
+      if (current) out.push(current);
+      current = word;
+      if (out.length === lines - 1) break;
+    }
+  }
+  if (out.length < lines && current) out.push(current);
+  return out.slice(0, lines);
+}
+
+function makeThumbnail({ title, category, creatorUsername, artistName, tags = [], portrait = false }) {
+  const theme = pickThumbnailTheme({ category, title, artistName, tags });
+  const width = portrait ? 720 : 1280;
+  const height = portrait ? 1280 : 720;
+  const lines = chunkText(title, portrait ? 18 : 26, portrait ? 3 : 2);
+  const creator = creatorUsername.replace(/[-_]/g, " ").toUpperCase();
+  const sub = artistName || category || "KINORA";
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${theme.bg1}"/>
+          <stop offset="100%" stop-color="${theme.bg2}"/>
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#g)"/>
+      <circle cx="${portrait ? 560 : 1080}" cy="${portrait ? 180 : 140}" r="${portrait ? 180 : 120}" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="${portrait ? 130 : 140}" cy="${portrait ? 220 : 560}" r="${portrait ? 140 : 100}" fill="rgba(255,255,255,0.08)"/>
+      <rect x="${portrait ? 46 : 52}" y="${portrait ? 52 : 46}" rx="28" ry="28" width="${portrait ? 240 : 260}" height="${portrait ? 60 : 56}" fill="rgba(0,0,0,0.28)"/>
+      <text x="${portrait ? 78 : 84}" y="${portrait ? 92 : 82}" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="${portrait ? 26 : 28}" fill="${theme.accent}">${escapeSvg(theme.pill)}</text>
+      <circle cx="${portrait ? 110 : 118}" cy="${portrait ? 1140 : 590}" r="${portrait ? 46 : 44}" fill="rgba(0,0,0,0.28)"/>
+      <text x="${portrait ? 110 : 118}" y="${portrait ? 1155 : 606}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="${portrait ? 40 : 38}" fill="#ffffff">${escapeSvg(theme.icon)}</text>
+      ${lines
+        .map(
+          (line, index) =>
+            `<text x="${portrait ? 56 : 56}" y="${portrait ? 300 + index * 72 : 420 + index * 72}" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="${portrait ? 52 : 58}" fill="#ffffff">${escapeSvg(line)}</text>`
+        )
+        .join("")}
+      <text x="${portrait ? 58 : 58}" y="${portrait ? 530 : 590}" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="${portrait ? 28 : 30}" fill="rgba(255,255,255,0.88)">${escapeSvg(sub)}</text>
+      <text x="${portrait ? 168 : 178}" y="${portrait ? 1148 : 600}" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="${portrait ? 28 : 26}" fill="rgba(255,255,255,0.9)">${escapeSvg(creator)}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
 function buildCatalog() {
   const titles = new Set();
   const thumbs = new Set();
@@ -469,8 +564,7 @@ function buildCatalog() {
     const [title, description, category, tags, creator, duration, views, likes, comments, daysAgo, type = "video", music] = row;
     if (titles.has(title)) throw new Error(`Duplicate title: ${title}`);
     titles.add(title);
-    const thumbSeed = `kinora-v${CATALOG_VERSION}-${i}-${slugify(title)}`;
-    const thumbnailUrl = `https://picsum.photos/seed/${thumbSeed}/1280/720`;
+    const thumbnailUrl = makeThumbnail({ title, category, creatorUsername: creator, artistName: music?.artist, tags });
     if (thumbs.has(thumbnailUrl)) throw new Error(`Duplicate thumb: ${thumbnailUrl}`);
     thumbs.add(thumbnailUrl);
 
@@ -504,8 +598,7 @@ function buildCatalog() {
     const [title, description, category, tags, creator, duration, views, likes, daysAgo] = row;
     if (titles.has(title)) throw new Error(`Duplicate reel title: ${title}`);
     titles.add(title);
-    const thumbSeed = `kinora-r${CATALOG_VERSION}-${i}-${slugify(title)}`;
-    const thumbnailUrl = `https://picsum.photos/seed/${thumbSeed}/720/1280`;
+    const thumbnailUrl = makeThumbnail({ title, category, creatorUsername: creator, tags, portrait: true });
     thumbs.add(thumbnailUrl);
     videos.push({
       title,
