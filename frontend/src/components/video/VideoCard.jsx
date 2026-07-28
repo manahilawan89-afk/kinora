@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiPlay } from "react-icons/fi";
+import { FiPlay, FiCheck } from "react-icons/fi";
 import { formatViews, formatDuration, timeAgo, getMediaUrl, getYoutubeId } from "../../utils/format";
 import MediaThumb from "../common/MediaThumb";
 
@@ -50,8 +50,25 @@ export default function VideoCard({ video, layout = "grid" }) {
             {video.title}
           </h3>
           <p className="mt-1 truncate text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
-            {video.owner?.fullName || video.owner?.username}
+            <span className="inline-flex items-center gap-1">
+              {video.owner?.fullName || video.owner?.username}
+              {video.owner?.isVerified && (
+                <span
+                  className="inline-flex h-3.5 w-3.5 items-center justify-center rounded-full bg-teal-600 text-white"
+                  title="Verified"
+                >
+                  <FiCheck size={9} strokeWidth={3} />
+                </span>
+              )}
+            </span>
           </p>
+          {video.artistName && (
+            <p className="truncate text-[11px] text-zinc-500">
+              {video.artistName}
+              {video.verifiedArtist ? " · Verified Artist" : ""}
+              {video.musicLabel ? ` · ${video.musicLabel}` : ""}
+            </p>
+          )}
           <p className="text-xs text-zinc-500 sm:text-sm">
             {formatViews(video.views)} views · {timeAgo(video.createdAt)}
           </p>
@@ -122,9 +139,25 @@ export default function VideoCard({ video, layout = "grid" }) {
             <h3 className="line-clamp-2 text-xs font-semibold leading-snug text-zinc-900 dark:text-zinc-50 sm:text-sm">
               {video.title}
             </h3>
-            <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-              {video.owner?.fullName || video.owner?.username}
+            <p className="mt-1 flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+              <span className="truncate">
+                {video.owner?.fullName || video.owner?.username}
+              </span>
+              {video.owner?.isVerified && (
+                <span
+                  className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-teal-600 text-white"
+                  title="Verified"
+                >
+                  <FiCheck size={9} strokeWidth={3} />
+                </span>
+              )}
             </p>
+            {video.artistName && (
+              <p className="truncate text-[11px] text-zinc-500">
+                Song · {video.artistName}
+                {video.musicLabel ? ` · ${video.musicLabel}` : ""}
+              </p>
+            )}
             <p className="text-xs text-zinc-500">
               {formatViews(video.views)} views · {timeAgo(video.createdAt)}
             </p>

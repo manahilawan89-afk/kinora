@@ -13,6 +13,7 @@ const DEFAULT_DB = {
   comments: [],
   likes: [],
   playlists: [],
+  meta: {},
 };
 
 function read() {
@@ -27,7 +28,11 @@ function read() {
   }
   const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
   for (const key of Object.keys(DEFAULT_DB)) {
-    if (!Array.isArray(data[key])) data[key] = [];
+    if (key === "meta") {
+      if (!data.meta || typeof data.meta !== "object") data.meta = {};
+    } else if (!Array.isArray(data[key])) {
+      data[key] = [];
+    }
   }
   return data;
 }
@@ -244,6 +249,44 @@ const store = {
       ...comment,
       author: author ? withId({ ...author, password: undefined }) : null,
     };
+  },
+
+  getMeta() {
+    return { ...(read().meta || {}) };
+  },
+
+  setMeta(patch) {
+    const db = read();
+    db.meta = { ...(db.meta || {}), ...patch };
+    write(db);
+    return db.meta;
+  },
+
+  replaceCatalogVideos(videos) {
+    const db = read();
+    const next = videos.map((v) => ({
+      id: randomUUID(),
+      views: 0,
+      likesCount: 0,
+      commentsCount: 0,
+      isPublic: true,
+      type: "video",
+      createdAt: new Date().toISOString(),
+      ...v,
+    }));
+    // Full catalog replace — drop old placeholders / duplicates
+    db.videos = next;
+    db.comments = [];
+    db.likes = [];
+    write(db);
+    return next.length;
+  },
+
+  removeCatalogUsers(usernames) {
+    const db = read();
+    const set = new Set(usernames);
+    db.users = db.users.filter((u) => !set.has(u.username));
+    write(db);
   },
 };
 

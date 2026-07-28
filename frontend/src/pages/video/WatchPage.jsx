@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FiThumbsUp, FiShare2, FiDownload, FiList } from "react-icons/fi";
+import { FiThumbsUp, FiShare2, FiDownload, FiList, FiCheck } from "react-icons/fi";
 import api from "../../services/api";
 import VideoCard from "../../components/video/VideoCard";
 import VideoPlayer from "../../components/video/VideoPlayer";
@@ -145,13 +145,29 @@ export default function WatchPage() {
             <div className="min-w-0 flex-1">
               <Link
                 to={`/channel/${video.owner?.username}`}
-                className="block truncate font-medium hover:underline"
+                className="inline-flex items-center gap-1.5 truncate font-medium hover:underline"
               >
                 {video.owner?.fullName || video.owner?.username}
+                {video.owner?.isVerified && (
+                  <span
+                    className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-teal-600 text-white"
+                    title="Verified"
+                  >
+                    <FiCheck size={10} strokeWidth={3} />
+                  </span>
+                )}
               </Link>
               <p className="text-xs text-zinc-500">
                 {formatViews(video.owner?.subscribersCount || 0)} subscribers
               </p>
+              {video.artistName && (
+                <p className="mt-0.5 text-xs text-zinc-500">
+                  {video.isOfficialMusic ? "Official · " : ""}
+                  {video.artistName}
+                  {video.verifiedArtist ? " ✓" : ""}
+                  {video.musicLabel ? ` · ${video.musicLabel}` : ""}
+                </p>
+              )}
             </div>
             <button className="shrink-0 rounded-full bg-zinc-900 px-3.5 py-2 text-sm font-medium text-white dark:bg-white dark:text-black sm:ml-2 sm:px-4">
               Subscribe
