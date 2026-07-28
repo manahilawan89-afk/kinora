@@ -93,6 +93,37 @@ a {
   scrollbar-width: none;
 }
 
+/* Sidebar nav — high-contrast active/inactive */
+.sidebar-link {
+  color: #3f3f46;
+  background: transparent;
+}
+.sidebar-link:hover {
+  color: #18181b;
+  background: #f4f4f5;
+}
+.dark .sidebar-link {
+  color: #f4f4f5;
+}
+.dark .sidebar-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-link-active {
+  color: #ffffff !important;
+  background: #0f766e !important;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.35);
+}
+.sidebar-link-active:hover {
+  color: #ffffff !important;
+  background: #0d9488 !important;
+}
+.dark .sidebar-link-active {
+  color: #ffffff !important;
+  background: #0f766e !important;
+}
+
 /* —— Kinora video player —— */
 .kinora-player {
   --player-accent: #14b8a6;

@@ -27,11 +27,11 @@ export default function Sidebar({ open, onClose }) {
         />
       )}
       <aside
-        className={`fixed left-0 top-12 z-40 h-[calc(100dvh-3rem)] w-[min(14rem,80vw)] overflow-y-auto border-r border-zinc-200 bg-white/95 p-2 pb-16 backdrop-blur-xl transition-transform dark:border-white/10 dark:bg-kinora-ink/95 md:sticky md:w-52 md:translate-x-0 md:pb-2 ${
+        className={`fixed left-0 top-12 z-40 h-[calc(100dvh-3rem)] w-[min(14rem,80vw)] overflow-y-auto border-r border-zinc-200 bg-white p-3 pb-16 transition-transform dark:border-white/10 dark:bg-[#071412] md:sticky md:w-56 md:translate-x-0 md:pb-3 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <nav className="space-y-1">
+        <nav className="space-y-1.5">
           {links.map(({ to, label, icon: Icon, end }) => (
             <NavLink
               key={to}
@@ -39,28 +39,33 @@ export default function Sidebar({ open, onClose }) {
               end={end}
               onClick={onClose}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition ${
-                  isActive
-                    ? "bg-teal-50 text-teal-800 ring-1 ring-teal-200 dark:bg-gradient-to-r dark:from-kinora-teal/40 dark:to-transparent dark:text-kinora-glow dark:ring-kinora-glow/20"
-                    : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
+                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-semibold transition ${
+                  isActive ? "sidebar-link-active" : "sidebar-link"
                 }`
               }
             >
-              <Icon size={18} />
-              {label}
+              {({ isActive }) => (
+                <>
+                  <Icon
+                    size={20}
+                    strokeWidth={isActive ? 2.5 : 2}
+                    className="shrink-0"
+                  />
+                  <span>{label}</span>
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
 
-        <div className="mt-8 rounded-2xl border border-teal-200/70 bg-gradient-to-br from-teal-50 to-amber-50 p-4 dark:border-white/10 dark:from-kinora-teal/20 dark:to-transparent">
-          <p className="font-brand text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-kinora-ember">
+        <div className="mt-8 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-white/20 dark:bg-[#0d2a27]">
+          <p className="font-brand text-xs font-bold uppercase tracking-[0.12em] text-[#b45309] dark:text-[#fbbf24]">
             Try the vibe
           </p>
-          <p className="mt-2 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
-            demo@youtube.com
-            <br />
-            password123
-          </p>
+          <div className="mt-3 space-y-1 text-sm font-semibold leading-relaxed text-zinc-900 dark:text-white">
+            <p>demo@youtube.com</p>
+            <p>password123</p>
+          </div>
         </div>
       </aside>
     </>
