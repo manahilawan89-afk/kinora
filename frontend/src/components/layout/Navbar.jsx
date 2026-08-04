@@ -74,12 +74,26 @@ export default function Navbar({ onMenuClick }) {
           </button>
 
           <button
+            type="button"
             onClick={() => dispatch(toggleTheme())}
-            className="rounded-full p-2 text-[#606060] hover:bg-[#f2f2f2] dark:text-zinc-300 dark:hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-[#d0d0d0] bg-white px-2.5 py-1.5 text-sm font-medium text-[#0f0f0f] hover:bg-[#f2f2f2] dark:border-white/15 dark:bg-[#121212] dark:text-zinc-100 dark:hover:bg-white/10"
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {darkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
+            <span
+              className={`relative inline-flex h-5 w-9 items-center rounded-full transition ${
+                darkMode ? "bg-[#3f3f46]" : "bg-[#065fd4]"
+              }`}
+            >
+              <span
+                className={`inline-flex h-4 w-4 items-center justify-center rounded-full bg-white text-[#0f0f0f] shadow transition ${
+                  darkMode ? "translate-x-4" : "translate-x-0.5"
+                }`}
+              >
+                {darkMode ? <FiMoon size={10} /> : <FiSun size={10} />}
+              </span>
+            </span>
+            <span className="hidden sm:inline">{darkMode ? "Dark" : "Light"}</span>
           </button>
 
           {user ? (
