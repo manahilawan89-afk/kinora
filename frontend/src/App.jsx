@@ -42,14 +42,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <SettingsPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route
           path="/admin"
           element={

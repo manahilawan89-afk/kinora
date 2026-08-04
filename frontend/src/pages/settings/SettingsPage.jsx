@@ -53,6 +53,10 @@ export default function SettingsPage() {
     });
   }, [user]);
 
+  useEffect(() => {
+    if (!user && tab !== "appearance") setTab("appearance");
+  }, [user, tab]);
+
   function showSuccess(text) {
     setError("");
     setMessage(text);
@@ -61,6 +65,7 @@ export default function SettingsPage() {
 
   async function saveProfile(e) {
     e.preventDefault();
+    if (!user) return navigate("/login");
     setSaving(true);
     setError("");
     try {
@@ -76,6 +81,7 @@ export default function SettingsPage() {
 
   async function savePassword(e) {
     e.preventDefault();
+    if (!user) return navigate("/login");
     setError("");
     if (passwords.newPassword !== passwords.confirmPassword) {
       setError("New passwords do not match");
@@ -101,16 +107,7 @@ export default function SettingsPage() {
     navigate("/login");
   }
 
-  if (!user) {
-    return (
-      <div className="mx-auto max-w-lg py-16 text-center">
-        <p className="mb-4 text-zinc-500">Sign in to manage your settings.</p>
-        <Link to="/login" className="text-blue-500 hover:underline">
-          Go to login
-        </Link>
-      </div>
-    );
-  }
+  const visibleTabs = user ? TABS : TABS.filter((t) => t.id === "appearance");
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -118,7 +115,7 @@ export default function SettingsPage() {
 
       <div className="flex flex-col gap-5 md:flex-row md:gap-6">
         <nav className="scrollbar-hide flex shrink-0 gap-1 overflow-x-auto md:w-48 md:flex-col">
-          {TABS.map(({ id, label, icon: Icon }) => (
+          {visibleTabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => {
@@ -139,6 +136,15 @@ export default function SettingsPage() {
         </nav>
 
         <div className="min-w-0 flex-1 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800 sm:p-5 md:p-6">
+          {!user && (
+            <p className="mb-4 rounded-lg bg-zinc-50 px-3 py-2 text-sm text-zinc-600 dark:bg-white/5 dark:text-zinc-300">
+              Theme can be changed without signing in.{" "}
+              <Link to="/login" className="font-medium text-teal-700 hover:underline dark:text-teal-300">
+                Sign in
+              </Link>{" "}
+              for profile and security settings.
+            </p>
+          )}
           {(message || error) && (
             <div
               className={`mb-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${
@@ -255,9 +261,9 @@ export default function SettingsPage() {
           {tab === "appearance" && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-lg font-medium">Appearance</h2>
+                <h2 className="text-lg font-medium">Theme</h2>
                 <p className="text-sm text-zinc-500">
-                  Choose how Kinora looks for you
+                  Switch between light and dark mode
                 </p>
               </div>
 
@@ -265,35 +271,53 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => dispatch(setDarkMode(false))}
-                  className={`flex items-center gap-3 rounded-xl border p-4 text-left transition ${
+                  className={`rounded-2xl border p-4 text-left transition ${
                     !darkMode
-                      ? "border-teal-600 bg-teal-50 dark:bg-teal-950/30"
+                      ? "border-teal-700 bg-teal-50 ring-2 ring-teal-700/20 dark:bg-teal-950/40"
                       : "border-zinc-200 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800/50"
                   }`}
                 >
-                  <FiSun size={22} />
-                  <div>
-                    <p className="font-medium">Light</p>
-                    <p className="text-xs text-zinc-500">Bright, clean look</p>
+                  <div className="mb-3 flex h-20 items-center justify-center rounded-xl border border-zinc-200 bg-white">
+                    <FiSun size={28} className="text-amber-500" />
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <p className="font-medium">Light</p>
+                      <p className="text-xs text-zinc-500">Bright and clean</p>
+                    </div>
+                    {!darkMode && <FiCheck className="text-teal-700" size={18} />}
                   </div>
                 </button>
                 <button
                   type="button"
                   onClick={() => dispatch(setDarkMode(true))}
-                  className={`flex items-center gap-3 rounded-xl border p-4 text-left transition ${
+                  className={`rounded-2xl border p-4 text-left transition ${
                     darkMode
-                      ? "border-teal-600 bg-teal-50 dark:bg-teal-950/30"
+                      ? "border-teal-500 bg-teal-50 ring-2 ring-teal-500/20 dark:border-teal-400 dark:bg-teal-950/40"
                       : "border-zinc-200 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800/50"
                   }`}
                 >
-                  <FiMoon size={22} />
-                  <div>
-                    <p className="font-medium">Dark</p>
-                    <p className="text-xs text-zinc-500">Cinematic Kinora vibe</p>
+                  <div className="mb-3 flex h-20 items-center justify-center rounded-xl border border-zinc-700 bg-[#0f0f0f]">
+                    <FiMoon size={28} className="text-zinc-200" />
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <p className="font-medium">Dark</p>
+                      <p className="text-xs text-zinc-500">Easy on the eyes</p>
+                    </div>
+                    {darkMode && <FiCheck className="text-teal-600 dark:text-teal-300" size={18} />}
                   </div>
                 </button>
               </div>
             </div>
+          )}
+
+          {tab === "profile" && !user && (
+            <p className="text-sm text-zinc-500">Sign in to edit your profile.</p>
+          )}
+
+          {tab === "security" && !user && (
+            <p className="text-sm text-zinc-500">Sign in to manage security settings.</p>
           )}
 
           {tab === "security" && (

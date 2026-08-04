@@ -7,15 +7,24 @@ export default function BrandLogo({ className = "" }) {
       className={`group flex items-center gap-2.5 ${className}`}
       aria-label="Kinora home"
     >
-      <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-gradient-to-br from-[#ff2d55] via-[#ff0033] to-[#c40028] shadow-sm ring-1 ring-black/5 transition group-hover:brightness-110">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path
-            d="M3.2 1.8c0-.7.76-1.14 1.36-.77l8.1 4.85c.6.36.6 1.18 0 1.54l-8.1 4.85c-.6.37-1.36-.07-1.36-.77V1.8z"
-            fill="#fff"
-          />
-        </svg>
-      </span>
-      <span className="font-brand truncate text-[1.35rem] font-bold tracking-[-0.03em] text-[#0f0f0f] dark:text-white">
+      <svg
+        width="34"
+        height="34"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        className="shrink-0 transition group-hover:opacity-90"
+      >
+        <rect width="40" height="40" rx="12" fill="#0F766E" />
+        <circle cx="20" cy="20" r="11.5" stroke="#99F6E4" strokeWidth="1.6" opacity="0.55" />
+        <circle cx="20" cy="20" r="7.2" stroke="#F0FDFA" strokeWidth="1.4" opacity="0.85" />
+        <path
+          d="M15.2 12.4h2.55l4.2 6.15 1.85-2.7V12.4H26.8v15.2h-2.85V21.2l-1.55 2.2-5.05 7.2h-2.85l5.55-7.85-5.05-7.35z"
+          fill="#F8FFFC"
+        />
+      </svg>
+      <span className="font-brand truncate text-[1.25rem] font-semibold tracking-[-0.04em] text-[#134e4a] dark:text-[#ccfbf1]">
         Kinora
       </span>
     </Link>
