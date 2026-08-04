@@ -308,6 +308,28 @@ const store = {
     db.users = db.users.filter((u) => !set.has(u.username));
     write(db);
   },
+
+  purgeUsersAndVideosByUsername(usernames = []) {
+    const db = read();
+    const set = new Set(usernames.map((u) => String(u).toLowerCase()));
+    const blockedIds = new Set(
+      db.users
+        .filter(
+          (u) =>
+            set.has(String(u.username || "").toLowerCase()) ||
+            String(u.fullName || "").toLowerCase().includes("ducky")
+        )
+        .map((u) => u.id)
+    );
+    db.users = db.users.filter((u) => !blockedIds.has(u.id));
+    db.videos = db.videos.filter(
+      (v) =>
+        !blockedIds.has(v.ownerId) &&
+        !String(v.title || "").toLowerCase().includes("ducky")
+    );
+    write(db);
+    return blockedIds.size;
+  },
 };
 
 module.exports = store;

@@ -51,6 +51,10 @@ async function ensureCreators(password, creators) {
 
 async function seedDatabase() {
   const password = await hashPassword("password123");
+
+  // Always strip blocked demo creators (e.g. Ducky Bhai)
+  store.purgeUsersAndVideosByUsername(["duckybhai", "ducky"]);
+
   const demo = await ensureDemoUser(password);
   const catalog = buildCatalog();
   const meta = store.getMeta();

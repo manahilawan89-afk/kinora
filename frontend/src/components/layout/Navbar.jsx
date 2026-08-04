@@ -34,47 +34,40 @@ export default function Navbar({ onMenuClick }) {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/85 pt-[env(safe-area-inset-top)] backdrop-blur-xl dark:border-white/10 dark:bg-kinora-ink/85">
-      <div className="flex h-12 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
+    <header className="sticky top-0 z-50 border-b border-[#e5e5e5] bg-white pt-[env(safe-area-inset-top)] dark:border-white/10 dark:bg-[#0f0f0f]">
+      <div className="flex h-14 items-center gap-2 px-3 sm:gap-3 sm:px-4">
         <button
           onClick={onMenuClick}
-          className="shrink-0 rounded-full p-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-white/10 md:hidden"
+          className="shrink-0 rounded-full p-2 text-[#0f0f0f] hover:bg-[#f2f2f2] dark:text-zinc-100 dark:hover:bg-white/10"
           aria-label="Menu"
         >
-          <FiMenu size={18} />
-        </button>
-        <button
-          onClick={onMenuClick}
-          className="hidden shrink-0 rounded-full p-2 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-white/10 md:inline-flex"
-          aria-label="Menu"
-        >
-          <FiMenu size={18} />
+          <FiMenu size={20} />
         </button>
 
         <BrandLogo className="min-w-0 shrink" />
 
         <form
           onSubmit={handleSearch}
-          className="mx-auto hidden max-w-2xl flex-1 items-center sm:flex"
+          className="mx-auto hidden max-w-xl flex-1 items-center sm:flex lg:max-w-2xl"
         >
           <input
-            className="h-9 w-full rounded-l-full border border-zinc-200 bg-zinc-50 px-3 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-teal-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-kinora-glow/50"
-            placeholder="Search Kinora..."
+            className="h-10 w-full rounded-l-full border border-[#ccc] bg-white px-4 text-sm text-[#0f0f0f] outline-none placeholder:text-[#606060] focus:border-[#1c62b9] dark:border-white/15 dark:bg-[#121212] dark:text-zinc-100"
+            placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
             type="submit"
-            className="flex h-9 w-12 items-center justify-center rounded-r-full border border-l-0 border-zinc-200 bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:border-white/10 dark:bg-white/10 dark:text-zinc-200 dark:hover:bg-white/15"
+            className="flex h-10 w-16 items-center justify-center rounded-r-full border border-l-0 border-[#ccc] bg-[#f8f8f8] text-[#0f0f0f] hover:bg-[#f0f0f0] dark:border-white/15 dark:bg-white/10 dark:text-zinc-100"
           >
             <FiSearch size={18} />
           </button>
         </form>
 
-        <div className="ml-auto flex items-center gap-0.5 sm:gap-2">
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <button
             onClick={() => setMobileSearchOpen((v) => !v)}
-            className="rounded-full p-2 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-white/10 sm:hidden"
+            className="rounded-full p-2 text-[#0f0f0f] hover:bg-[#f2f2f2] dark:text-zinc-200 dark:hover:bg-white/10 sm:hidden"
             aria-label="Search"
           >
             {mobileSearchOpen ? <FiX size={18} /> : <FiSearch size={18} />}
@@ -82,7 +75,7 @@ export default function Navbar({ onMenuClick }) {
 
           <button
             onClick={() => dispatch(toggleTheme())}
-            className="rounded-full p-2 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-white/10"
+            className="rounded-full p-2 text-[#606060] hover:bg-[#f2f2f2] dark:text-zinc-300 dark:hover:bg-white/10"
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -93,21 +86,14 @@ export default function Navbar({ onMenuClick }) {
             <>
               <Link
                 to="/upload"
-                className="rounded-full p-2 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-white/10 sm:hidden"
-                aria-label="Upload"
-              >
-                <FiUpload size={18} />
-              </Link>
-              <Link
-                to="/upload"
-                className="hidden items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-sm font-medium text-teal-800 ring-1 ring-teal-200 hover:bg-teal-100 dark:bg-kinora-teal/20 dark:text-kinora-glow dark:ring-kinora-glow/30 dark:hover:bg-kinora-teal/30 sm:flex"
+                className="hidden items-center gap-2 rounded-full border border-[#d0d0d0] px-3.5 py-1.5 text-sm font-medium text-[#0f0f0f] hover:bg-[#f2f2f2] dark:border-white/15 dark:text-zinc-100 dark:hover:bg-white/10 sm:flex"
               >
                 <FiUpload size={16} />
                 Create
               </Link>
               <Link
                 to="/settings"
-                className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-teal-700 text-xs font-medium text-white ring-2 ring-amber-400/70"
+                className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-[#065fd4] text-xs font-medium text-white"
                 title={user.username}
               >
                 {user.avatar ? (
@@ -118,7 +104,7 @@ export default function Navbar({ onMenuClick }) {
               </Link>
               <button
                 onClick={() => dispatch(logout())}
-                className="hidden text-xs text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 sm:block"
+                className="hidden text-xs text-[#606060] hover:text-[#0f0f0f] dark:hover:text-zinc-200 sm:block"
               >
                 Sign out
               </button>
@@ -126,7 +112,7 @@ export default function Navbar({ onMenuClick }) {
           ) : (
             <Link
               to="/login"
-              className="rounded-full bg-amber-500 px-3 py-1.5 text-sm font-semibold text-black hover:brightness-110 sm:px-4"
+              className="rounded-full border border-[#065fd4] px-3.5 py-1.5 text-sm font-semibold text-[#065fd4] hover:bg-[#def1ff]"
             >
               Sign in
             </Link>
@@ -137,18 +123,18 @@ export default function Navbar({ onMenuClick }) {
       {mobileSearchOpen && (
         <form
           onSubmit={handleSearch}
-          className="flex items-center gap-2 border-t border-zinc-200/70 px-3 py-2 dark:border-white/10 sm:hidden"
+          className="flex items-center gap-2 border-t border-[#e5e5e5] px-3 py-2 dark:border-white/10 sm:hidden"
         >
           <input
             autoFocus
-            className="h-9 flex-1 rounded-full border border-zinc-200 bg-zinc-50 px-3 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-teal-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-100"
-            placeholder="Search Kinora..."
+            className="h-10 flex-1 rounded-full border border-[#ccc] bg-white px-4 text-sm outline-none focus:border-[#1c62b9] dark:border-white/15 dark:bg-[#121212]"
+            placeholder="Search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
             type="submit"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-700 text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f2f2f2] text-[#0f0f0f]"
             aria-label="Submit search"
           >
             <FiSearch size={18} />

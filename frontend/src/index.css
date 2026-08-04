@@ -5,15 +5,15 @@
 :root {
   --brand: #0f766e;
   --brand-glow: #0d9488;
-  --brand-accent: #d97706;
-  --ink: #071412;
-  --shell-bg: #f4f7f6;
+  --brand-accent: #0f766e;
+  --ink: #0f0f0f;
+  --shell-bg: #ffffff;
 }
 
 .dark {
   --brand-glow: #2dd4bf;
   --brand-accent: #f59e0b;
-  --shell-bg: #071412;
+  --shell-bg: #0f0f0f;
 }
 
 html {
@@ -36,8 +36,8 @@ body,
 }
 
 body {
-  font-family: "Source Sans 3", system-ui, sans-serif;
-  @apply bg-[#f4f7f6] text-zinc-900 antialiased dark:bg-kinora-ink dark:text-zinc-100;
+  font-family: "Roboto", "Source Sans 3", system-ui, sans-serif;
+  @apply bg-white text-[#0f0f0f] antialiased dark:bg-[#0f0f0f] dark:text-zinc-100;
 }
 
 /* Comfortable tap targets on touch devices */
@@ -53,19 +53,11 @@ a {
 .kinora-shell {
   min-height: 100%;
   height: 100%;
-  background:
-    radial-gradient(1100px 520px at 8% -8%, rgba(15, 118, 110, 0.14), transparent 55%),
-    radial-gradient(900px 480px at 92% 0%, rgba(217, 119, 6, 0.1), transparent 50%),
-    radial-gradient(700px 380px at 50% 110%, rgba(13, 148, 136, 0.1), transparent 55%),
-    #f4f7f6;
+  background: #ffffff;
 }
 
 .dark .kinora-shell {
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(45, 212, 191, 0.18), transparent 55%),
-    radial-gradient(900px 500px at 90% 0%, rgba(245, 158, 11, 0.12), transparent 50%),
-    radial-gradient(700px 400px at 50% 100%, rgba(15, 118, 110, 0.2), transparent 60%),
-    #071412;
+  background: #0f0f0f;
 }
 
 .kinora-noise {
@@ -73,17 +65,7 @@ a {
 }
 
 .kinora-noise::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 0;
-}
-
-.dark .kinora-noise::before {
-  opacity: 0.04;
+  display: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -94,17 +76,18 @@ a {
   scrollbar-width: none;
 }
 
-/* Sidebar nav — high-contrast active/inactive */
+/* Sidebar nav — YouTube-like light active state */
 .sidebar-link {
-  color: #3f3f46;
+  color: #0f0f0f;
   background: transparent;
+  font-weight: 400;
 }
 .sidebar-link:hover {
-  color: #18181b;
-  background: #f4f4f5;
+  color: #0f0f0f;
+  background: #f2f2f2;
 }
 .dark .sidebar-link {
-  color: #f4f4f5;
+  color: #f1f1f1;
 }
 .dark .sidebar-link:hover {
   color: #ffffff;
@@ -112,17 +95,18 @@ a {
 }
 
 .sidebar-link-active {
-  color: #ffffff !important;
-  background: #0f766e !important;
-  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.35);
+  color: #0f0f0f !important;
+  background: #f2f2f2 !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
 }
 .sidebar-link-active:hover {
-  color: #ffffff !important;
-  background: #0d9488 !important;
+  color: #0f0f0f !important;
+  background: #e5e5e5 !important;
 }
 .dark .sidebar-link-active {
   color: #ffffff !important;
-  background: #0f766e !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* —— Kinora video player —— */

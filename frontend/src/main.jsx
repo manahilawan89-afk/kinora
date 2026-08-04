@@ -13,9 +13,16 @@ function Bootstrap() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const saved = localStorage.getItem("darkMode");
-    const dark = saved === null ? true : saved === "true";
-    dispatch(setDarkMode(dark));
+    const migrated = localStorage.getItem("kinoraLightV2");
+    if (!migrated) {
+      localStorage.setItem("darkMode", "false");
+      localStorage.setItem("kinoraLightV2", "1");
+      dispatch(setDarkMode(false));
+    } else {
+      const saved = localStorage.getItem("darkMode");
+      const dark = saved === "true";
+      dispatch(setDarkMode(dark));
+    }
     if (token) dispatch(fetchMe());
   }, [dispatch]);
 

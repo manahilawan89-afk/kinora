@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 function readDarkMode() {
   const saved = localStorage.getItem("darkMode");
-  if (saved === null) return true; // Kinora defaults to dark
+  if (saved === null) return false; // Kinora defaults to light
   return saved === "true";
 }
 
@@ -18,7 +18,7 @@ if (typeof document !== "undefined") {
 const themeSlice = createSlice({
   name: "theme",
   initialState: {
-    darkMode: typeof window !== "undefined" ? readDarkMode() : true,
+    darkMode: typeof window !== "undefined" ? readDarkMode() : false,
   },
   reducers: {
     toggleTheme(state) {
